@@ -46,8 +46,8 @@ First, I will remove the column Q58:11, and then combine the aforementioned sect
 To remove Q58:11 I will have to rename it, as the ":" in the name causes issues in function"select".
 ```{r}
 df1 <- dfog
-df2 <- df1 %>% dplyr::rename(delete = 259)
-df3 <- df2 %>% select(-delete)
+df2 <- df1 #%>% dplyr::rename(delete = 259)
+df3 <- df2 #%>% select(-delete)
 
 ```
 
@@ -64,56 +64,238 @@ df4[] <- lapply(df4, function(x) type.convert(as.character(x)))
 remove all columns where all values are NA
 ```{r}
 df5 <- df4
-df6 <- df5[ , colSums(is.na(df4)) < nrow(df4)]
+df6a <- df5[ , colSums(is.na(df4)) < nrow(df4)]
 ```
 
 
 
-now to combine the demographic data, but before I have to rename those columns as they now have the same name. I swear this dataset was meant to frustrate me.Also I have to rename column 123, because it is blank. Not sure how the bottom bit works with attributing df6 to df5 after I declared df6, but it does. I tried it other ways and it didnt output a df6. comment out df6 <- df5 and test yourself if ya like.
+All this to combine the demographic data
+
+Before I do that, I have to rename columns that currently have the same name. I swear this dataset was meant to frustrate me. Also I have to rename column 117 in df6a, because the column name is blank. Not sure how the bottom bit works with attributing df6 to df6a after I declared df6, but it does. I tried it other ways and it didnt output a df6. comment out df6 <- df6a and test yourself if ya like.
 I have now decided to use this path to rename all bits, because it wont work otherwise with dplyr's tools, only with base r.
 
 ```{r}
-df5 <- df4
-df6 <- names(df5)[123] <- "How much do you expect your PhD to improve your job prospects?"     ###AV Coulumn name/question is sourced from Nature_GradSurvey_Script2019_Final1.docx
-df6 <- names(df5)[11] <- "delete1"                                                             ###Av delete because it has no values
-df6 <- names(df5)[14] <- "Most important reason to get a phd other specified" 
-df6 <- names(df5)[18] <- "other country of residence in asia specified"                                ###AV all Taiwan except one instance of Egypt
-###AV Deleting empty columns
-df6 <- names(df5)[20] <- "delete2"  
-df6 <- names(df5)[22] <- "delete3"  
-df6 <- names(df5)[24] <- "delete4"  
-df6 <- names(df5)[26] <- "delete5"  
-
-df6 <- names(df5)[11] <- "delete1"  
-df6 <- names(df5)[11] <- "delete1"  
-df6 <- names(df5)[11] <- "delete1"  
-df6 <- names(df5)[11] <- "delete1"  
-df6 <- names(df5)[11] <- "delete1"  
-df6 <- names(df5)[11] <- "delete1"  
-df6 <- names(df5)[11] <- "delete1"  
-df6 <- names(df5)[11] <- "delete1"  
-df6 <- names(df5)[11] <- "delete1"  
+df6 <- df6a
+df6 <- names(df6a)[117] <- "How much do you expect your PhD to improve your job prospects?"     ###AV Coulumn name/question is sourced from Nature_GradSurvey_Script2019_Final1.docx
 
 
+###AV Rename all duplicates of "If other, please specify" and make unique
+df6 <- names(df6a)[12] <- "specified1" 
+df6 <- names(df6a)[16] <- "specified2" 
+df6 <- names(df6a)[22] <- "specified3" 
+
+df6 <- names(df6a)[34] <- "specified4" 
+df6 <- names(df6a)[37] <- "specified5" 
+df6 <- names(df6a)[54] <- "specified6" 
+df6 <- names(df6a)[79] <- "specified7" 
+df6 <- names(df6a)[89] <- "specified8"
+
+df6 <- names(df6a)[104] <- "specified9" 
+df6 <- names(df6a)[116] <- "specified10" 
+df6 <- names(df6a)[139] <- "specified11" 
+df6 <- names(df6a)[141] <- "specified12" 
+df6 <- names(df6a)[146] <- "specified13" 
+
+df6 <- names(df6a)[158] <- "specified14" 
+df6 <- names(df6a)[173] <- "specified15" 
+df6 <- names(df6a)[183] <- "specified16" 
+df6 <- names(df6a)[191] <- "specified17" 
+df6 <- names(df6a)[200] <- "specified18"
+
+df6 <- names(df6a)[225] <- "specified19" 
+df6 <- names(df6a)[233] <- "specified20" 
+df6 <- names(df6a)[239] <- "specified21" 
+df6 <- names(df6a)[255] <- "specified22" 
+df6 <- names(df6a)[261] <- "specified23"
 
 
 
+###AV Rename all duplicates of "What prompted you to study outside your country of upbringing" and make unique
+df6 <- names(df6a)[23] <- "prompt to study outside country of upbringing1" 
+df6 <- names(df6a)[24] <- "prompt to study outside country of upbringing2" 
+df6 <- names(df6a)[25] <- "prompt to study outside country of upbringing3" 
+df6 <- names(df6a)[26] <- "prompt to study outside country of upbringing4" 
+df6 <- names(df6a)[27] <- "prompt to study outside country of upbringing5" 
+df6 <- names(df6a)[28] <- "prompt to study outside country of upbringing6" 
+df6 <- names(df6a)[29] <- "prompt to study outside country of upbringing7" 
+df6 <- names(df6a)[30] <- "prompt to study outside country of upbringing8" 
+df6 <- names(df6a)[31] <- "prompt to study outside country of upbringing9" 
+df6 <- names(df6a)[32] <- "prompt to study outside country of upbringing10" 
+df6 <- names(df6a)[33] <- "prompt to study outside country of upbringing11" 
 
-df6 <- df5
+
+###AV Rename all duplicates of "Who was the perpetrator(s)" and make unique
+df6 <- names(df6a)[97] <-  "positionOfPerpetrator1" 
+df6 <- names(df6a)[98] <-  "positionOfPerpetrator2" 
+df6 <- names(df6a)[99] <-  "positionOfPerpetrator3" 
+df6 <- names(df6a)[100] <- "positionOfPerpetrator4" 
+df6 <- names(df6a)[101] <- "positionOfPerpetrator5" 
+df6 <- names(df6a)[102] <- "positionOfPerpetrator6" 
+df6 <- names(df6a)[103] <- "positionOfPerpetrator7" 
+
+
+###AV Rename all duplicates of "Which of the following have you experienced?" and make unique
+df6 <- names(df6a)[107] <- "experience1" 
+df6 <- names(df6a)[108] <- "experience2" 
+df6 <- names(df6a)[109] <- "experience3" 
+df6 <- names(df6a)[110] <- "experience4" 
+df6 <- names(df6a)[111] <- "experience5" 
+df6 <- names(df6a)[112] <- "experience6" 
+df6 <- names(df6a)[113] <- "experience7" 
+df6 <- names(df6a)[114] <- "experience8" 
+df6 <- names(df6a)[115] <- "experience9" 
+
+
+###AV Rename all duplicates of "If you’re unlikely to pursue an academic research career, what are the main reasons??" and make unique
+df6 <- names(df6a)[130] <- "reasonUnlikelyAcademicCarreerPursuit1" 
+df6 <- names(df6a)[131] <- "reasonUnlikelyAcademicCarreerPursuit2" 
+df6 <- names(df6a)[132] <- "reasonUnlikelyAcademicCarreerPursuit3" 
+df6 <- names(df6a)[133] <- "reasonUnlikelyAcademicCarreerPursuit4" 
+df6 <- names(df6a)[134] <- "reasonUnlikelyAcademicCarreerPursuit5" 
+df6 <- names(df6a)[135] <- "reasonUnlikelyAcademicCarreerPursuit6" 
+df6 <- names(df6a)[136] <- "reasonUnlikelyAcademicCarreerPursuit7" 
+df6 <- names(df6a)[137] <- "reasonUnlikelyAcademicCarreerPursuit8" 
+df6 <- names(df6a)[138] <- "reasonUnlikelyAcademicCarreerPursuit9" 
+
+###AV Rename all duplicates of "How did you arrive at your current career decision? Plea..." and make unique
+df6 <- names(df6a)[147] <- "HowArriveAtCareerDecision1" 
+df6 <- names(df6a)[148] <- "HowArriveAtCareerDecision2" 
+df6 <- names(df6a)[149] <- "HowArriveAtCareerDecision3" 
+df6 <- names(df6a)[151] <- "HowArriveAtCareerDecision4" 
+df6 <- names(df6a)[152] <- "HowArriveAtCareerDecision5" 
+df6 <- names(df6a)[153] <- "HowArriveAtCareerDecision6" 
+df6 <- names(df6a)[154] <- "HowArriveAtCareerDecision7" 
+df6 <- names(df6a)[155] <- "HowArriveAtCareerDecision8" 
+df6 <- names(df6a)[156] <- "HowArriveAtCareerDecision9" 
+df6 <- names(df6a)[157] <- "HowArriveAtCareerDecision10" 
+
+###AV Rename all duplicates of "How do you learn about available career opportunities that are beyond academia?" and make unique
+df6 <- names(df6a)[159] <- "HowLearnCareerNotAcademia1" 
+df6 <- names(df6a)[160] <- "HowLearnCareerNotAcademia2" 
+df6 <- names(df6a)[161] <- "HowLearnCareerNotAcademia3" 
+df6 <- names(df6a)[162] <- "HowLearnCareerNotAcademia4" 
+df6 <- names(df6a)[163] <- "HowLearnCareerNotAcademia5" 
+df6 <- names(df6a)[164] <- "HowLearnCareerNotAcademia6" 
+df6 <- names(df6a)[165] <- "HowLearnCareerNotAcademia7" 
+df6 <- names(df6a)[166] <- "HowLearnCareerNotAcademia8" 
+df6 <- names(df6a)[167] <- "HowLearnCareerNotAcademia9" 
+df6 <- names(df6a)[168] <- "HowLearnCareerNotAcademia10" 
+df6 <- names(df6a)[169] <- "HowLearnCareerNotAcademia11" 
+df6 <- names(df6a)[170] <- "HowLearnCareerNotAcademia12" 
+df6 <- names(df6a)[171] <- "HowLearnCareerNotAcademia13" 
+df6 <- names(df6a)[172] <- "HowLearnCareerNotAcademia14" 
+
+###AV Rename all duplicates of "Which of the following 3 things would you say are the most difficult for PhD students in your discipline?" and make unique
+df6 <- names(df6a)[174] <- "DifficultInDiscipline1" 
+df6 <- names(df6a)[175] <- "DifficultInDiscipline2" 
+df6 <- names(df6a)[176] <- "DifficultInDiscipline3" 
+df6 <- names(df6a)[177] <- "DifficultInDiscipline4" 
+df6 <- names(df6a)[178] <- "DifficultInDiscipline5" 
+df6 <- names(df6a)[179] <- "DifficultInDiscipline6" 
+df6 <- names(df6a)[180] <- "DifficultInDiscipline7" 
+df6 <- names(df6a)[181] <- "DifficultInDiscipline8" 
+df6 <- names(df6a)[182] <- "DifficultInDiscipline9" 
+
+
+###AV Rename all duplicates of "Which of the following would you say are the most difficult for PhD students in the country where you are studying?" and make unique
+df6 <- names(df6a)[184] <- "DifficultInCountry1" 
+df6 <- names(df6a)[185] <- "DifficultInCountry2" 
+df6 <- names(df6a)[186] <- "DifficultInCountry3" 
+df6 <- names(df6a)[187] <- "DifficultInCountry4" 
+df6 <- names(df6a)[188] <- "DifficultInCountry5" 
+df6 <- names(df6a)[189] <- "DifficultInCountry6" 
+df6 <- names(df6a)[190] <- "DifficultInCountry7" 
+
+###AV Rename all duplicates of "Which of the following resources do you think PhD students need the most in order to establish a satisfying career?" and make unique
+df6 <- names(df6a)[192] <- "ResourcesForSatisfyingCareer1" 
+df6 <- names(df6a)[193] <- "ResourcesForSatisfyingCareer2" 
+df6 <- names(df6a)[194] <- "ResourcesForSatisfyingCareer3" 
+df6 <- names(df6a)[195] <- "ResourcesForSatisfyingCareer4" 
+df6 <- names(df6a)[196] <- "ResourcesForSatisfyingCareer5" 
+
+df6 <- names(df6a)[197] <- "ResourcesForSatisfyingCareer6" 
+df6 <- names(df6a)[198] <- "ResourcesForSatisfyingCareer7" 
+df6 <- names(df6a)[199] <- "ResourcesForSatisfyingCareer8" 
+
+###AV Rename all duplicates of "Which, if any, of the following activities have you done to advance your career?" and make unique
+df6 <- names(df6a)[217] <- "ActivitiesToAdvanceCareer1" 
+df6 <- names(df6a)[218] <- "ActivitiesToAdvanceCareer2" 
+df6 <- names(df6a)[219] <- "ActivitiesToAdvanceCareer3" 
+df6 <- names(df6a)[220] <- "ActivitiesToAdvanceCareer4" 
+df6 <- names(df6a)[221] <- "ActivitiesToAdvanceCareer5" 
+
+df6 <- names(df6a)[222] <- "ActivitiesToAdvanceCareer6" 
+df6 <- names(df6a)[223] <- "ActivitiesToAdvanceCareer7" 
+df6 <- names(df6a)[224] <- "ActivitiesToAdvanceCareer8" 
+
+
+###AV Rename all duplicates of "Which of the following social media networks have you used to build your professional network" and make unique
+df6 <- names(df6a)[226] <- "SocialMediaToBuildNetwork1" 
+df6 <- names(df6a)[227] <- "SocialMediaToBuildNetwork2" 
+df6 <- names(df6a)[228] <- "SocialMediaToBuildNetwork3" 
+df6 <- names(df6a)[229] <- "SocialMediaToBuildNetwork4" 
+df6 <- names(df6a)[230] <- "SocialMediaToBuildNetwork5" 
+df6 <- names(df6a)[231] <- "SocialMediaToBuildNetwork6" 
+df6 <- names(df6a)[232] <- "SocialMediaToBuildNetwork7" 
+
+###AV Rename all duplicates of "What would you do differently right now if you were starting your programme?" and make unique
+df6 <- names(df6a)[234] <- "DoDifferently1" 
+df6 <- names(df6a)[235] <- "DoDifferently2" 
+df6 <- names(df6a)[236] <- "DoDifferently3" 
+df6 <- names(df6a)[237] <- "DoDifferently4" 
+df6 <- names(df6a)[238] <- "DoDifferently5" 
+
+
+###AV Rename all duplicates of "Which of the following best describes you?" and make unique
+df6 <- names(df6a)[243] <- "BestDescribes1" 
+df6 <- names(df6a)[244] <- "BestDescribes2" 
+df6 <- names(df6a)[245] <- "BestDescribes3" 
+df6 <- names(df6a)[246] <- "BestDescribes4" 
+df6 <- names(df6a)[247] <- "BestDescribes5" 
+
+df6 <- names(df6a)[248] <- "BestDescribes6" 
+df6 <- names(df6a)[249] <- "BestDescribes7" 
+df6 <- names(df6a)[250] <- "BestDescribes8" 
+df6 <- names(df6a)[251] <- "BestDescribes9" 
+df6 <- names(df6a)[252] <- "BestDescribes10"
+
+df6 <- names(df6a)[253] <- "BestDescribes11" 
+df6 <- names(df6a)[254] <- "BestDescribes12"
+
+
+###AV Rename all duplicates of "Do you have any caring responsibilities" and make unique
+df6 <- names(df6a)[256] <- "CaringResponsibilities1" 
+df6 <- names(df6a)[257] <- "CaringResponsibilities2" 
+df6 <- names(df6a)[258] <- "CaringResponsibilities3" 
+df6 <- names(df6a)[259] <- "CaringResponsibilities4" 
+df6 <- names(df6a)[260] <- "CaringResponsibilities5" 
+
+
+
+#df6 <- names(df5)[20] <- "delete2"  
+#df6 <- names(df6a)[] <- "" 32 and for next 23 to 33
+df6 <- df6a
+
 #code adapted from https://www.statology.org/how-to-rename-data-frame-columns-in-r/ and https://www.sharpsightlabs.com/blog/rename-columns-in-r/
 #df6 <- names(df5) <- c("miles_gallon", "cylinders", "display", "horsepower")
-#df6 <- rename(df5, xyz=1) ###AV Didnt Work. Will use something other than rename
-#df5 %>% unite("ethnicity", 251:259, remove = FALSE)
-#rename(df6, combine1 = 150)
+
+###AV This bottom bit told me what I am missing to rename and make not identical
+###rename(df6, combine1 = 150)
+
+
+###df6 <- rename(df5, xyz=1) ###AV Didnt Work. Will use something other than rename
+
+###df6 %>% unite("ethnicity", 251:259, remove = FALSE)
+
 ```
-Just notes from console to guide my renmaing. They'll remain here for posteriority.
-x These names are duplicated:
-  * "If other, please specify" at locations 11, 14, 18, 20, 22, etc.
-  * "What prompted you to study outside your country of upbringing?" at locations 29, 30, 31, 32, 33, etc.
-  * "Who was the perpetrator(s)?" at locations 103, 104, 105, 106, 107, etc.
-  * "Which of the following have you experienced?" at locations 113, 114, 115, 116, 117, etc.
-  * "If you’re unlikely to pursue an academic research career, what are the main reasons?" at locations 136, 137, 138, 139, 140, etc.
-  * ...
+
+
+###AV Rename all duplicates of "" and make unique
+df6 <- names(df6a)[] <- "" 
+df6 <- names(df6a)[] <- "" 
+df6 <- names(df6a)[] <- "" 
+df6 <- names(df6a)[] <- "" 
+df6 <- names(df6a)[] <- "" 
 
 
 ```{r}
