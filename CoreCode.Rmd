@@ -61,18 +61,59 @@ df4[] <- lapply(df4, function(x) type.convert(as.character(x)))
 ```
 
 
-now to combine the demographic data, but before I have to rename those columns as they now have the same name. I swear this dataset was meant to frustrate me.Also I have to rename column 123, because it is blank. Not sure how the bottom bit works with attributing df6 to df5 after I declared df6, but it does. I tried it other ways and it didnt output a df6. comment out df6 <- df5 and test yourself if ya like.
+remove all columns where all values are NA
 ```{r}
 df5 <- df4
-df6 <- names(df5)[123] <- "How much do you expect your PhD to improve your job prospects?" ###AV Coulumn name/question is sourced from Nature_GradSurvey_Script2019_Final1.docx
+df6 <- df5[ , colSums(is.na(df4)) < nrow(df4)]
+```
+
+
+
+now to combine the demographic data, but before I have to rename those columns as they now have the same name. I swear this dataset was meant to frustrate me.Also I have to rename column 123, because it is blank. Not sure how the bottom bit works with attributing df6 to df5 after I declared df6, but it does. I tried it other ways and it didnt output a df6. comment out df6 <- df5 and test yourself if ya like.
+I have now decided to use this path to rename all bits, because it wont work otherwise with dplyr's tools, only with base r.
+
+```{r}
+df5 <- df4
+df6 <- names(df5)[123] <- "How much do you expect your PhD to improve your job prospects?"     ###AV Coulumn name/question is sourced from Nature_GradSurvey_Script2019_Final1.docx
+df6 <- names(df5)[11] <- "delete1"                                                             ###Av delete because it has no values
+df6 <- names(df5)[14] <- "Most important reason to get a phd other specified" 
+df6 <- names(df5)[18] <- "other country of residence in asia specified"                                ###AV all Taiwan except one instance of Egypt
+###AV Deleting empty columns
+df6 <- names(df5)[20] <- "delete2"  
+df6 <- names(df5)[22] <- "delete3"  
+df6 <- names(df5)[24] <- "delete4"  
+df6 <- names(df5)[26] <- "delete5"  
+
+df6 <- names(df5)[11] <- "delete1"  
+df6 <- names(df5)[11] <- "delete1"  
+df6 <- names(df5)[11] <- "delete1"  
+df6 <- names(df5)[11] <- "delete1"  
+df6 <- names(df5)[11] <- "delete1"  
+df6 <- names(df5)[11] <- "delete1"  
+df6 <- names(df5)[11] <- "delete1"  
+df6 <- names(df5)[11] <- "delete1"  
+df6 <- names(df5)[11] <- "delete1"  
+
+
+
+
+
+
 df6 <- df5
 #code adapted from https://www.statology.org/how-to-rename-data-frame-columns-in-r/ and https://www.sharpsightlabs.com/blog/rename-columns-in-r/
 #df6 <- names(df5) <- c("miles_gallon", "cylinders", "display", "horsepower")
 #df6 <- rename(df5, xyz=1) ###AV Didnt Work. Will use something other than rename
 #df5 %>% unite("ethnicity", 251:259, remove = FALSE)
-rename(df6, combine1 = 150)
+#rename(df6, combine1 = 150)
 ```
-
+Just notes from console to guide my renmaing. They'll remain here for posteriority.
+x These names are duplicated:
+  * "If other, please specify" at locations 11, 14, 18, 20, 22, etc.
+  * "What prompted you to study outside your country of upbringing?" at locations 29, 30, 31, 32, 33, etc.
+  * "Who was the perpetrator(s)?" at locations 103, 104, 105, 106, 107, etc.
+  * "Which of the following have you experienced?" at locations 113, 114, 115, 116, 117, etc.
+  * "If you’re unlikely to pursue an academic research career, what are the main reasons?" at locations 136, 137, 138, 139, 140, etc.
+  * ...
 
 
 ```{r}
