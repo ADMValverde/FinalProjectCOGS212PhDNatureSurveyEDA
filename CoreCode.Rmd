@@ -46,7 +46,7 @@ First, I will remove the column Q58:11, and then combine the aforementioned sect
 To remove Q58:11 I will have to rename it, as the ":" in the name causes issues in function"select".
 ```{r}
 df1 <- dfog
-df2 <- df1 %>% rename(delete = 259)
+df2 <- df1 %>% dplyr::rename(delete = 259)
 df3 <- df2 %>% select(-delete)
 
 ```
@@ -61,10 +61,16 @@ df4[] <- lapply(df4, function(x) type.convert(as.character(x)))
 ```
 
 
-now to combine the demographic data
+now to combine the demographic data, but before I have to rename those columns as they now have the same name. I swear this dataset was meant to frustrate me.Also I have to rename column 123, because it is blank. Not sure how the bottom bit works with attributing df6 to df5 after I declared df6, but it does. I tried it other ways and it didnt output a df6. comment out df6 <- df5 and test yourself if ya like.
 ```{r}
 df5 <- df4
-df5 %>% unite("ethnicity", 251:259, remove = FALSE)
+df6 <- names(df5)[123] <- "How much do you expect your PhD to improve your job prospects?" ###AV Coulumn name/question is sourced from Nature_GradSurvey_Script2019_Final1.docx
+df6 <- df5
+#code adapted from https://www.statology.org/how-to-rename-data-frame-columns-in-r/ and https://www.sharpsightlabs.com/blog/rename-columns-in-r/
+#df6 <- names(df5) <- c("miles_gallon", "cylinders", "display", "horsepower")
+#df6 <- rename(df5, xyz=1) ###AV Didnt Work. Will use something other than rename
+#df5 %>% unite("ethnicity", 251:259, remove = FALSE)
+rename(df6, combine1 = 150)
 ```
 
 
