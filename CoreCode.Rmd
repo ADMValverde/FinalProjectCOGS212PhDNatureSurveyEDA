@@ -9,40 +9,62 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Background:
+This is the github post that lead me to the dataset
+https://github.com/rfordatascience/tidytuesday/issues/153
+This is the dataset
+https://figshare.com/s/74a5ea79d76ad66a8af8
+This is the course that I am writing this code for
+https://data-science-methods.github.io/project/
 
 
+Load in Libraries and Installations
 ```{r}
+library(tidyverse)
+library(readxl)
+```
+
+
+Load in dataset that I downloaded from the link above(and which I placed into a "data" folder within the project folder)
+```{r}
+dfog <- read_excel("data/Nature_PhD survey_Anon_v1.xlsx")
+```
+
+
+This is meant to ensure that it all was imported properly
+```{r}
+glimpse(dfog)
+```
+Just to check that the top has been preserved.
+```{r}
+head(dfog)
+```
+
+
+So there are alot of NA's here, I am removing those by combining bits that perhaps ought not have been separated out. The demographic data, for example, appears to have only one value per row(individual) and yet is scattered across multiple columns. I will combine Q58:1 to Q58.Am while excluding Q58:11, as that one is just specifying that a person is another ethnicity, which they then typed out by hand.
+First, I will remove the column Q58:11, and then combine the aforementioned sections.
+To remove Q58:11 I will have to rename it, as the ":" in the name causes issues in function"select".
+```{r}
+df1 <- dfog
+df2 <- df1 %>% rename(delete = 259)
+df3 <- df2 %>% select(-delete)
 
 ```
 
 
-
+In hindsight, why not just remove the top row and use the second row (the questions themselves) as the column identifier? That would make this easier, no?
 ```{r}
-
+df4<-df3
+names(df4) <- as.matrix(df4[1, ])
+df4 <- df4[-1, ]
+df4[] <- lapply(df4, function(x) type.convert(as.character(x)))
 ```
 
 
-
+now to combine the demographic data
 ```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
+df5 <- df4
+df5 %>% unite("ethnicity", 251:259, remove = FALSE)
 ```
 
 
