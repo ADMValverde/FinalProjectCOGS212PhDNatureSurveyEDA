@@ -76,7 +76,7 @@ I have now decided to use this path to rename all bits, because it wont work oth
 
 ```{r}
 df6 <- df6a
-df6 <- names(df6a)[117] <- "How much do you expect your PhD to improve your job prospects?"     ###AV Coulumn name/question is sourced from Nature_GradSurvey_Script2019_Final1.docx
+df6 <- names(df6a)[117] <- "How much do you expect your PhD to improve your job prospects?"     ###AV Coulumn name/question is sourced from Nature_GradSurvey_Script2019_Final1.docx, named cause it was blank
 
 
 ###AV Rename all duplicates of "If other, please specify" and make unique
@@ -273,7 +273,7 @@ df6 <- names(df6a)[260] <- "CaringResponsibilities5"
 
 
 #df6 <- names(df5)[20] <- "delete2"  
-#df6 <- names(df6a)[] <- "" 32 and for next 23 to 33
+#df6 <- names(df6a)[] <- "" 
 df6 <- df6a
 
 #code adapted from https://www.statology.org/how-to-rename-data-frame-columns-in-r/ and https://www.sharpsightlabs.com/blog/rename-columns-in-r/
@@ -287,19 +287,32 @@ df6 <- df6a
 
 ###df6 %>% unite("ethnicity", 251:259, remove = FALSE)
 
+###AV Template for above
+####AV Rename all duplicates of "" and make unique
+#df6 <- names(df6a)[] <- "" 
+#df6 <- names(df6a)[] <- "" 
+#df6 <- names(df6a)[] <- "" 
+#df6 <- names(df6a)[] <- "" 
+#df6 <- names(df6a)[] <- "" 
+
+###Finished Product: df7
+df7 <- df6
+
 ```
 
 
-###AV Rename all duplicates of "" and make unique
-df6 <- names(df6a)[] <- "" 
-df6 <- names(df6a)[] <- "" 
-df6 <- names(df6a)[] <- "" 
-df6 <- names(df6a)[] <- "" 
-df6 <- names(df6a)[] <- "" 
 
+actually combine demographic data
 
 ```{r}
-
+df8 <- unite(df7, "ethnicityGroupedOther",  243:254, remove = FALSE, na.rm = TRUE)
+#df7 %>% unite("ethnicityOtherWriteInIncluded", 2,remove= FALSE) specified22 is variable that has the write in ethnicity data
+df9 <- unite(df8, "ethnicityOtherWriteInNotYetIncluded", 244:252, remove = FALSE, na.rm = TRUE)
+###AV Ensure that all NA values remain as NA, as the above unite processes seem to convert NA to blanks after uniting. Comment out the 2 lines below to confirm.
+df10 <- df9 
+df10[df10 == ""] <- NA 
+###AV finally combine them all
+df11 <- unite(df10, "ethnicityOtherWriteInIncluded", c('ethnicityOtherWriteInNotYetIncluded', 'specified22') , remove = FALSE, na.rm = TRUE)
 ```
 
 
