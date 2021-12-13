@@ -1,16 +1,50 @@
 ---
-title: "CoreCode"
-author: "ADMValverde"
+title: "Immigration and Doctoral Dreariness"
+author: "Aramis D. M. Valverde"
 date: "12/10/2021"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Background:
-This is the github post that lead me to the dataset
+## Is It Perhaps Different Doing A PhD In A Country You Grew Up In As Opposed to One That You Moved To?
+### I Mean Probably, IDK Though, Lets Find Out!
+
+
+### Like All Good Articles, We Start With The Abstract
+
+#### Abstract
+
+
+A 2019 Nature survey of doctoral students worldwide conducted by Shift Learning, [a UK based education market research and consulting firm](https://www.shift-learning.co.uk/), demonstrated that PhD students are not doing all that well. The Nature [write up by Chris Woolston](https://www.nature.com/articles/d41586-019-03459-7) noted that xyz bad things. Prior research has backed up the concept that PhD students and graduate students at large arent doing so hot. As a PhD student I thought, "yeah, I feel it, its pretty bad, I'm pretty sad.". However I made a startling realization that at least I didn't have to deal with being an actual immigrant or a woman. But then one asks oneself, "huh, is it actually worse?". Maybe Bill O'Rielly was right when he said that women don't feel discrimination in the workplace.
+
+To analyze if it is worse to be a woman, or an immigrant, as opposed to not those things, I analyzed Nature's data set as published on figshare. I would have analyzed the data for trans people, however, they're rolled into the male and female. Gender queer was included, so I will attempt an analysis, however that was a very small number of persons, so I may not be able to demonstrate a significant difference even if one is liable to exist (previous research indicates significant differences with all of the aforementioned groups). 
+
+The results were xyz, abc, def, ghi, jkl, mno, pqr, stu, vwx, yza.
+
+https://group.springernature.com/gp/group/media/press-releases/archive-2019/nature-phd-survey-puts-spotlight-on-mental-health/17372858
+https://www.zmescience.com/other/pieces/journals-to-blame-poor-phd-mental-health-0432/
+https://www.insidehighered.com/news/2019/11/14/phd-student-poll-finds-mental-health-bullying-and-career-uncertainty-are-top
+https://www.nature.com/articles/d41586-019-03535-y
+
+https://figshare.com/articles/dataset/Data_publication_survey_raw_data/1234052
+https://figshare.com/articles/dataset/Nature_Graduate_Survey_2017/5480716?file=9558301
+
+https://www.nature.com/articles/nj7677-549a
+
+
+
+
+##### Background:
+
+
+
+
+This is the github post that lead me to the data set
 https://github.com/rfordatascience/tidytuesday/issues/153
 This is the dataset
 https://figshare.com/s/74a5ea79d76ad66a8af8
@@ -18,10 +52,18 @@ This is the course that I am writing this code for
 https://data-science-methods.github.io/project/
 
 
+
+
+#### Methods
+
+
+
 Load in Libraries and Installations
 ```{r}
 library(tidyverse)
 library(readxl)
+tinytex::install_tinytex()
+library(tinytex)
 ```
 
 
@@ -35,6 +77,8 @@ This is meant to ensure that it all was imported properly
 ```{r}
 glimpse(dfog)
 ```
+
+
 Just to check that the top has been preserved.
 ```{r}
 head(dfog)
@@ -68,12 +112,10 @@ df6a <- df5[ , colSums(is.na(df4)) < nrow(df4)]
 ```
 
 
-
 All this to combine the demographic data
 
-Before I do that, I have to rename columns that currently have the same name. I swear this dataset was meant to frustrate me. Also I have to rename column 117 in df6a, because the column name is blank. Not sure how the bottom bit works with attributing df6 to df6a after I declared df6, but it does. I tried it other ways and it didnt output a df6. comment out df6 <- df6a and test yourself if ya like.
+Before I do that, I have to rename columns that currently have the same name. I swear this data set was meant to frustrate me. Also I have to rename column 117 in df6a, because the column name is blank. Not sure how the bottom bit works with attributing df6 to df6a after I declared df6, but it does. I tried it other ways and it didn't output a df6. comment out df6 <- df6a and test yourself if ya like.
 I have now decided to use this path to rename all bits, because it wont work otherwise with dplyr's tools, only with base r.
-
 ```{r}
 df6 <- df6a
 df6 <- names(df6a)[117] <- "How much do you expect your PhD to improve your job prospects?"     ###AV Coulumn name/question is sourced from Nature_GradSurvey_Script2019_Final1.docx, named cause it was blank
@@ -270,7 +312,7 @@ df6 <- names(df6a)[258] <- "CaringResponsibilities3"
 df6 <- names(df6a)[259] <- "CaringResponsibilities4" 
 df6 <- names(df6a)[260] <- "CaringResponsibilities5" 
 
-
+df6 <- names(df6a)[242] <- "Gender" 
 
 #df6 <- names(df5)[20] <- "delete2"  
 #df6 <- names(df6a)[] <- "" 
@@ -301,9 +343,7 @@ df7 <- df6
 ```
 
 
-
 actually combine demographic data
-
 ```{r}
 df8 <- unite(df7, "ethnicityGroupedOther",  243:254, remove = FALSE, na.rm = TRUE)
 #df7 %>% unite("ethnicityOtherWriteInIncluded", 2,remove= FALSE) specified22 is variable that has the write in ethnicity data
@@ -316,8 +356,28 @@ df11 <- unite(df10, "ethnicityOtherWriteInIncluded", c('ethnicityOtherWriteInNot
 ```
 
 
-
+well doing that wasn't quite useful, because now I will focus on PEOPLE WHO MOVED INTO A COUNTRY FROM ELSEWHERE. Not on ethnicity. But this is EDA, so the clear and distinct lack of direction is a feature, not a bug.
 ```{r}
+#df12 <- df11[c(201:216)]
+#df13 <- df11[c(242)]
+#df14 <- merge(df12,df13) ###running this causes an error *** recursive gc invocation... which then causes a Rstudio to crash.
+#df[df$var1 == 'value', ] 
+
+###df12 contains gender, 
+df12 <- df11[c(201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,242)]
+
+df12Male <- df12[df12$'Gender' == 'Male (including trans male)',]
+df12Female <- df12[df12$'Gender' == 'Female (including trans female)',]
+df12GenderQueerandorNonBinary <- df12[df12$'Gender' == 'Gender queer / Non binary',]
+
+```
+
+
+Analysis of Gender Variations in Training Satisfaction
+```{r}
+
+
+
 
 ```
 
@@ -393,11 +453,6 @@ df11 <- unite(df10, "ethnicityOtherWriteInIncluded", c('ethnicityOtherWriteInNot
 
 ```
 
-
-
-```{r}
-
-```
 
 
 ```{r}
