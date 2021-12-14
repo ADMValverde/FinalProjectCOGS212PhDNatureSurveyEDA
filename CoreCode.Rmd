@@ -56,7 +56,6 @@ https://data-science-methods.github.io/project/
 
 #### Methods
 
-
 paste this in to hide output, code, and code: {r someVar,results='hide', echo=FALSE,include=FALSE}
 
 Load in Libraries and Installations
@@ -72,23 +71,21 @@ library(dplyr)
 ```
 
 
-Load in dataset that I downloaded from the link above(and which I placed into a "data" folder within the project folder)
+Load in dataset that I downloaded from the link above(and which I placed into a "data" folder within the project folder) and check that it imported properly
 ```{r}
 dfog <- read_excel("data/Nature_PhD survey_Anon_v1.xlsx")
 ```
-
-
 This is meant to ensure that it all was imported properly
 ```{r}
 glimpse(dfog)
 ```
-
-
 Just to check that the top has been preserved.
 ```{r}
 head(dfog)
 ```
 
+
+##### DATA WRANGLIN' AN' CLEANIN'
 
 So there are alot of NA's here, I am removing those by combining bits that perhaps ought not have been separated out. The demographic data, for example, appears to have only one value per row(individual) and yet is scattered across multiple columns. I will combine Q58:1 to Q58.Am while excluding Q58:11, as that one is just specifying that a person is another ethnicity, which they then typed out by hand.
 First, I will remove the column Q58:11, and then combine the aforementioned sections.
@@ -99,8 +96,6 @@ df2 <- df1 #%>% dplyr::rename(delete = 259)
 df3 <- df2 #%>% select(-delete)
 
 ```
-
-
 In hindsight, why not just remove the top row and use the second row (the questions themselves) as the column identifier? That would make this easier, no?
 ```{r}
 df4<-df3
@@ -108,8 +103,6 @@ names(df4) <- as.matrix(df4[1, ])
 df4 <- df4[-1, ]
 df4[] <- lapply(df4, function(x) type.convert(as.character(x)))
 ```
-
-
 remove all columns where all values are NA
 ```{r}
 df5 <- df4
@@ -117,10 +110,7 @@ df6a <- df5[ , colSums(is.na(df4)) < nrow(df4)]
 ```
 
 
-All this to combine the demographic data
-
-Before I do that, I have to rename columns that currently have the same name. I swear this data set was meant to frustrate me. Also I have to rename column 117 in df6a, because the column name is blank. Not sure how the bottom bit works with attributing df6 to df6a after I declared df6, but it does. I tried it other ways and it didn't output a df6. comment out df6 <- df6a and test yourself if ya like.
-I have now decided to use this path to rename all bits, because it wont work otherwise with dplyr's tools, only with base r.
+I have to rename columns that currently have the same name. I swear this data set was meant to frustrate me. Also I have to rename column 117 in df6a, because the column name is blank. Not sure how the bottom bit works with attributing df6 to df6a after I declared df6, but it does. I tried it other ways and it didn't output a df6. comment out df6 <- df6a and test yourself if ya like. I use this work flow to rename all repeated bits, because doing it any other way wont work, I tried dplyr's tools, didnt work. Only with base r.
 ```{r}
 df6 <- df6a
 df6 <- names(df6a)[117] <- "How much do you expect your PhD to improve your job prospects?"     ###AV Coulumn name/question is sourced from Nature_GradSurvey_Script2019_Final1.docx, named cause it was blank
@@ -347,8 +337,7 @@ df7 <- df6
 
 ```
 
-
-actually combine demographic data
+Combine demographic data
 ```{r}
 df8 <- unite(df7, "ethnicityGroupedOther",  243:254, remove = FALSE, na.rm = TRUE)
 #df7 %>% unite("ethnicityOtherWriteInIncluded", 2,remove= FALSE) specified22 is variable that has the write in ethnicity data
@@ -360,8 +349,7 @@ df10[df10 == ""] <- NA
 df11 <- unite(df10, "ethnicityOtherWriteInIncluded", c('ethnicityOtherWriteInNotYetIncluded', 'specified22') , remove = FALSE, na.rm = TRUE)
 ```
 
-
-well doing that wasn't quite useful, because now I will focus on PEOPLE WHO MOVED INTO A COUNTRY FROM ELSEWHERE. Not on ethnicity. But this is EDA, so the clear and distinct lack of direction is a feature, not a bug.
+Well, doing that wasn't quite useful, because now I will focus on PEOPLE WHO MOVED INTO A COUNTRY FROM ELSEWHERE. Not on ethnicity. But this is EDA, so the clear and distinct lack of direction is a feature, not a bug.
 ```{r}
 #df12 <- df11[c(201:216)]
 #df13 <- df11[c(242)]
@@ -377,17 +365,7 @@ df12GenderQueerandorNonBinary <- df12[df12$'Gender' == 'Gender queer / Non binar
 
 ```
 
-
-Analysis of Gender Variations in Training Satisfaction
-```{r}
-#str(df12)
-#summary(df12)
-
-#[1] 5
-```
-
-
-the actual analysis to be graphed! Woo!!!
+the actual analysis to be graphed! Woo!!! Also, unfortunately I cannot name things with spaces, as that seems to break things.
 ```{r}
 df13 <- df12Male
 
@@ -403,16 +381,13 @@ table(df12$Gender)/length(df12$Gender)
 
 ```
 
-
-Some more data wrangling
+Some more data transformations and another rename.
 ```{r}
 
 df15 <- names(df12)[1] <- "Collecting"
 df15 <- df12
 df <- df15
 ```
-
-
 
 
 
@@ -452,30 +427,8 @@ ggplot(data = df) +
   scale_fill_brewer(palette = "BrBG")
 ```
 
-
-better plot that fails at reordering variables
-```{r}
-
-
-#dfnew1 <- df %>% arrange(Collecting) %>% mutate(name = factor(Collecting, levels=c("Very badly", "Badly", "Neither well not badly", "Well", "Very well", "Unsure/Not applicable")))
-
-
-data_new <- df                             
-data_new$group <- factor(data_new$Collecting,c("Very badly", "Badly", "Neither well not badly", "Well", "Very well", "Unsure/Not applicable"))
-ggplot(data = data_new) + 
-  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
-  scale_colour_brewer(palette = "BrBg") +
-  scale_fill_brewer(palette = "BrBG")
-
-```
-
-
 This chunk contains the code to reorder variables manually. Finally figured out how to reorder this stuff. Goodness.
 ```{r}
-
-
-#dfnew1 <- df %>% arrange(Collecting) %>% mutate(name = factor(Collecting, levels=c("Very badly", "Badly", "Neither well not badly", "Well", "Very well", "Unsure/Not applicable")))
-
 
 data_new <- df
 df <- data_new
@@ -491,15 +444,6 @@ ggplot(data = data_new) +
   scale_colour_brewer(palette = "BrBg") +
   scale_fill_brewer(palette = "BrBG")
 
-```
-
-
-trash graph, redo later
-```{r}
-df %>%
-  ggplot(aes(x=Gender, y= Collecting)) +
-  stat_histinterval(position = "dodge") +
- theme_ggdist()
 ```
 
 
@@ -519,264 +463,6 @@ Analysis that isnt working yet
 #lm1 <- lm(data = df, Collecting ~ Gender) # the model
 
 #summary(lm1) # summarizes the output of the model
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
-```
-
-
-
-```{r}
-
 ```
 
 
