@@ -395,25 +395,6 @@ barplotMCollectingData
 ```
 
 
-Rename Variable to be analyzed and Analysis
-```{r}
-#df13 <- df12M
-
-###AV both lines are required for a sucessful renaming and creation of a new dataframe. I have no idea why.
-#df14 <- names(df13)[1] <- "Collecting" 
-#df14 <- df13
-
-
-#barplotMCollectingData <- ggplot(df14, aes( Collecting, colour = Gender)) + 
- # geom_bar()
-
-#dfgender <- table(df12['Gender'])
-#genderCount <- as.data.frame(dfgender)
-
-#genderProportion <- as.data.frame(table(df12$Gender)/length(df12$Gender))
-#barplotMCollectingData
-```
-
 
 Some more data transformations and another rename, so that I could copy and paste from online sources which predominantly use "df" or "data" and not df23 or whatever I'm doing. here is where i seem to have renamed df12's collecting and not df12m's accounting for the difference between the two.
 ```{r}
@@ -432,8 +413,9 @@ first graph, not incredibly interesting and also hampered by small sample size o
 ```{r}
 ggplot(data = df) + 
   geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "dodge")+
-  scale_colour_brewer(palette = "BrBg") +
-  scale_fill_brewer(palette = "BrBG")
+  scale_colour_brewer(palette = "BrBG") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
 
 
 #dodge <- position_dodge(width = 0.9)+
@@ -496,10 +478,19 @@ Analysis that isn't working yet
 ```
 
 
-
+Misc Example Code
 ```{r}
 
+###AV Script to rename one or multiples, same for multiples but just repeat first line till the end and second line once at the end. Both lines are required for a successful renaming and creation of a new data frame. I have no idea why.
+
+#df14 <- names(df13)[1] <- "Collecting" 
+#df14 <- df13
+
+
+###AV 
+
 ```
+
 
 ```{r}
 
