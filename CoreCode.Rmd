@@ -59,7 +59,7 @@ https://data-science-methods.github.io/project/
 
 
 Load in Libraries and Installations
-```{r}
+```{r someVar,results='hide', echo=FALSE,include=FALSE}
 library(tidyverse)
 library(readxl)
 library(ggplot2)
