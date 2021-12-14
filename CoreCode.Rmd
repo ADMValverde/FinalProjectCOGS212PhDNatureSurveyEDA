@@ -507,9 +507,9 @@ waffle(
 
 Analysis that isnt working yet
 ```{r}
-lm1 <- lm(data = df, Collecting ~ Gender) # the model
+#lm1 <- lm(data = df, Collecting ~ Gender) # the model
 
-summary(lm1) # summarizes the output of the model
+#summary(lm1) # summarizes the output of the model
 ```
 
 
