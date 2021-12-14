@@ -15,13 +15,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ### I Mean Probably, IDK Though, Lets Find Out!
 
 
+
 #### Abstract:
 
 
 
-A 2019 Nature survey of doctoral students worldwide conducted by Shift Learning, [a UK based education market research and consulting firm](https://www.shift-learning.co.uk/), demonstrated that PhD students are not doing all that well. The Nature [write up by Chris Woolston](https://www.nature.com/articles/d41586-019-03459-7) noted that more than a third of PhD students have sought help for anxiety or depression caused by their their PhD studies, and more than a fifth of PhD students had experienced discrimination or harassment in their PhD program. Prior research has backed up the concept that PhD students and graduate students at large aren't doing so hot. As a PhD student I thought, "yeah, I feel it, its pretty bad, I'm pretty sad.". However I realized that at least I didn't have to deal with being an actual immigrant or a woman. But then one asks oneself, "huh, is it actually worse?. Maybe Bill O'Rielly was right when he said that women don't feel discrimination in the workplace."
+A 2019 Nature survey of doctoral students worldwide conducted by Shift Learning, [a UK based education market research and consulting firm](https://www.shift-learning.co.uk/), demonstrated that PhD students are not doing all that well. The Nature [write up by Chris Woolston](https://www.nature.com/articles/d41586-019-03459-7) noted that more than a third of PhD students have sought help for anxiety or depression caused by their their PhD studies, and more than a fifth of PhD students had experienced discrimination or harassment in their PhD program. Prior research has backed up the concept that PhD students, and graduate students at large, aren't doing terribly well. As a PhD student I thought, "yeah, I feel it, its pretty bad, I'm pretty sad.". However I reassured myself that at least I didn't have to deal with being an actual immigrant or a woman. But then one asks oneself, "huh, is it actually worse?. Maybe Bill O'Rielly was right when he said that women don't feel discrimination in the workplace."
 
-To analyze if it is worse to be a woman, or an immigrant, as opposed to not those things, I analyzed Nature's data set as published on figshare. I would have analyzed the data for trans people, however, they're rolled into the male and female. Gender queer was included, so I will attempt an analysis, however that was a very small number of persons, so I may not be able to demonstrate a significant difference even if one is liable to exist (previous research indicates significant differences with all of the aforementioned groups). 
+To analyze if it is worse to be a woman, or an immigrant, as opposed to not those things, I analyzed Nature's data set as published on figshare. 
 
 The results were xyz, abc, def, ghi, jkl, mno, pqr, stu, vwx, yza.
 
@@ -36,7 +37,18 @@ https://www.nature.com/articles/nj7677-549a
 
 
 
-##### Background:
+##### Introduction:
+
+Things are hard for PhD students. Research has demonstrated a persistent and severe toll on the mental health of PhD students due to the conditions that they are put under. More than a third have sought help for anxiety and depression caused by their PhD studies, and a fifth of PhD students have experienced discrimination and harassment in their program. A [2020 study of UK PhD students](https://onlinelibrary.wiley.com/doi/abs/10.1002/capr.12437?__cf_chl_jschl_tk__=2NIUSjRMyi_VDwOrxUtn3r60rXsjnFQeqsrPfr6T7pI-1639471304-0-gaNycGzNCH0) found that 40 percent of said students were at high risk of suicide, with 8 percent having made an attempt.
+
+That being said, every doctoral student's experience is not the same. Some student's experiences are worse. U.S. based doctoral students originating from China also have to deal with [isolation, loneliness, and alienation](https://eric.ed.gov/?id=EJ1133943). Some trans students have to deal with severe hostility or insensitivity related to their gender identity or expression, leading suicide attempts rates [four times higher than trans students who did not have that severe experience](https://psycnet.apa.org/record/2012-27680-006). It is therefore very unfortunate that this survey lumped transgendered and cisgendered people into one variable. Erasure, especially in research, has [consequential and damaging effects on trans people](https://www.sciencedirect.com/science/article/abs/pii/S1055329009001071).Gender queer and non-conforming was included, so I will attempt an analysis, however that was a very small number of persons, so I may not be able to demonstrate a significant difference even if one is liable to exist.
+
+I must note that I am a minority doctoral student myself, however my analysis does not focus on racial discrimination. While I am a minority in my department and in my country, I am not an immigrant, nor am I a minority in the state or city where I am studying (Merced, California). I struggle with no language barrier, no one chides me for my voice, and I can travel freely throughout my campus and the city I reside in. I note this because, while my analysis of the data stands on its own, my experience is such that I am not able to speak from direct experience, and that is a limiatation on my work.
+
+
+I would have analyzed the data for trans people, however, they're rolled into the male and female.
+
+
 
 This is the github post that lead me to the data set
 https://github.com/rfordatascience/tidytuesday/issues/153
@@ -81,16 +93,13 @@ head(dfog)
 
 ##### DATA WRANGLIN' AN' CLEANIN'
 
-So there are alot of NA's here, I am removing those by combining bits that perhaps ought not have been separated out. The demographic data, for example, appears to have only one value per row(individual) and yet is scattered across multiple columns. I will combine Q58:1 to Q58.Am while excluding Q58:11, as that one is just specifying that a person is another ethnicity, which they then typed out by hand.
-First, I will remove the column Q58:11, and then combine the aforementioned sections.
-To remove Q58:11 I will have to rename it, as the ":" in the name causes issues in function"select".
+Creation of ancillary duplicate data frames
 ```{r}
 df1 <- dfog
-df2 <- df1 #%>% dplyr::rename(delete = 259)
-df3 <- df2 #%>% select(-delete)
-
+df2 <- df1 
+df3 <- df2 
 ```
-In hindsight, why not just remove the top row and use the second row (the questions themselves) as the column identifier? That would make this easier, no?
+Remove the top row and use the second row (the questions themselves) as the column identifier. The semicolons and periods in the top row creates many issues
 ```{r}
 df4<-df3
 names(df4) <- as.matrix(df4[1, ])
@@ -103,10 +112,10 @@ df5 <- df4
 df6a <- df5[ , colSums(is.na(df4)) < nrow(df4)]
 ```
 
-I have to rename columns that currently have the same name. I swear this data set was meant to frustrate me. Also I have to rename column 117 in df6a, because the column name is blank. Not sure how the bottom bit works with attributing df6 to df6a after I declared df6, but it does. I tried it other ways and it didn't output a df6. comment out df6 <- df6a and test yourself if ya like. I use this work flow to rename all repeated bits, because doing it any other way wont work, I tried dplyr's tools, didnt work. Only with base r.
+Rename columns that currently have the same name, as that causes issues. Rename column 117 name in df6a, because the column name in that position is blank. I am not sure how the bottom portion works with attributing df6 to df6a after I declared df6, but it does. I tried it other ways and it didn't output df6. To test this, please do comment out df6 <- df6a and test yourself. I use this work flow to rename all repeated bits, because doing it any other way wont work. dplyr's tools didnt work, renaming was only accomplished with base r.
 ```{r}
 df6 <- df6a
-df6 <- names(df6a)[117] <- "How much do you expect your PhD to improve your job prospects?"     ###AV Coulumn name/question is sourced from Nature_GradSurvey_Script2019_Final1.docx, named cause it was blank
+df6 <- names(df6a)[117] <- "How much do you expect your PhD to improve your job prospects?"     ###AV Coulumn name/question is sourced from Nature_GradSurvey_Script2019_Final1.docx, named because it was blank
 
 
 ###AV Rename all duplicates of "If other, please specify" and make unique
@@ -302,7 +311,7 @@ df6 <- names(df6a)[260] <- "CaringResponsibilities5"
 
 
 
-###AV Final Important Bits one more rename and the declaration that makes renaming work.
+###AV Final Important Bits, one more rename and the declaration that makes renaming work.
 df6 <- names(df6a)[242] <- "Gender" 
 df6 <- df6a
 
@@ -310,7 +319,7 @@ df6 <- df6a
 ###AV This bit told me what I am missing to rename and make not identical
 ###rename(df6, combine1 = 150)
 
-###AV Template for above
+###AV This is the template I used to fill in the above.
 ####AV Rename all duplicates of "" and make unique
 #df6 <- names(df6a)[] <- "" 
 #df6 <- names(df6a)[] <- "" 
@@ -337,43 +346,41 @@ df10[df10 == ""] <- NA
 df11 <- unite(df10, "ethnicityOtherWriteInIncluded", c('ethnicityOtherWriteInNotYetIncluded', 'specified22') , remove = FALSE, na.rm = TRUE)
 ```
 
-Well, doing that wasn't quite useful, because now I will focus on PEOPLE WHO MOVED INTO A COUNTRY FROM ELSEWHERE. Not on ethnicity. But this is EDA, so the clear and distinct lack of direction is a feature, not a bug.
+---Everything Below this line probably requires df12 or some variation of df11---
+
+
+Well, doing the above combination wasnt quite that useful, because now I will focus on PEOPLE WHO MOVED INTO A COUNTRY FROM ELSEWHERE AND GENDER. Not on ethnicity. But this is EDA, so the clear and distinct lack of direction is a feature, not a bug.
+
+### Gender Analysis against Training and Readiness (Q50)
+
+Gender count and gender proportion analysis, and data frame creation
 ```{r}
-###df12 contains Gender, 
+###Output A Table and dataframe with the values needed
+tableGender <- table(df11['Gender'])
+genderCount<- as.data.frame(tableGender)
+
+###Proportional Analysis
+genderProportion <- as.data.frame(table(df11$Gender)/length(df11$Gender))
+###Display Output genderProportion
+genderProportion
+```
+
+
+Creation of different data frames for analysis by gender, against training efficacy for certain tasks(Q50).
+```{r}
 df12 <- df11[c(201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,242)]
 
 df12M <- df12[df12$'Gender' == 'Male (including trans male)',]
 df12F <- df12[df12$'Gender' == 'Female (including trans female)',]
 df12GQNB <- df12[df12$'Gender' == 'Gender queer / Non binary',]
-###Use the above df12*gender* bits to create separate graphs and then mash together possibly.
 ```
 
 
----Everything Below this line probably requires df12 or some variation of df11---
 
-
-Gender count and gender proportion analysis and data frame creation
-```{r}
-###Output A Table and dataframe with the values needed
-tableGender <- table(df12['Gender'])
-genderCount<- as.data.frame(tableGender)
-
-###Proportional Analysis
-table(df12$Gender)/length(df12$Gender)
-genderProportion <- as.data.frame(table(df12$Gender)/length(df12$Gender))
-```
-
-
-Whole workflow for analysis using Male (including trans male) value selection
+Whole workflow for analysis using "Male (including trans male)" value row selection
 ```{r}
 
 ###Select relevant columns/variables
-df12 <- df11[c(201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,242)]
-
-#Possibly create new dataframes by row value
-#df12Male <- df12[df12$'Gender' == 'Male (including trans male)',]
-#df12Female <- df12[df12$'Gender' == 'Female (including trans female)',]
-#df12GenderQueerandorNonBinary <- df12[df12$'Gender' == 'Gender queer / Non binary',]
 
 ### Rename Variable/Column to be analyzed, the dependent, by index
 df13M <- df12M
@@ -386,8 +393,8 @@ df14M <- df13M
 #ggplot(df14M, aes( Collecting, colour = Gender)) +   geom_bar() ###Just another way to plot the data
 
 barplotMCollectingData <- ggplot(df14M, aes( Collecting, colour = Gender)) + 
-  geom_bar()
-
+  geom_bar()+
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
 
 ###Display Plot
 barplotMCollectingData
@@ -395,8 +402,23 @@ barplotMCollectingData
 ```
 
 
+Analysis for Collecting Data Variable against Gender, Count and Proportion
+```{r}
+###Output A Table and dataframe, possible first step in analysis given grouping. difficult to say, would replace collecting with M, F, GQNB, as derived from dfM, dfF, dfGQNB, then combine, then analyze.
+#Collecting <- table(df12['Collecting'])
+#genderVsCollecting <- as.data.frame.array(Collecting)
+#genderVsCollecting
 
-Some more data transformations and another rename, so that I could copy and paste from online sources which predominantly use "df" or "data" and not df23 or whatever I'm doing. here is where i seem to have renamed df12's collecting and not df12m's accounting for the difference between the two.
+
+###Proportional Analysis
+CollectingProportion <- as.data.frame(table(df12$Collecting)/length(df12$Collecting))
+###Display Output
+CollectingProportion
+```
+
+
+
+Some data transformations and a rename, so that I could copy and paste from online sources which predominantly use "df" or "data" and not df23 or whatever I'm doing. Here is where I seem to have renamed df12's Collecting column and not df12m's, accounting for the difference between the two.
 ```{r}
 
 df15 <- names(df12)[1] <- "Collecting"
@@ -407,43 +429,26 @@ df <- df15
 
 
 
-#### Graphs!!!
+### Graphs!!!
 
-first graph, not incredibly interesting and also hampered by small sample size of Gender Queer/Non Binary  and Prefer Not To Say
+####Gender against Collecting Data 
+
+first graph, not incredibly interesting and also hampered by small sample size of Gender Queer/Non Binary and Prefer Not To Say
 ```{r}
-ggplot(data = df) + 
+
+groupedBarGenderCollecting <- ggplot(data = df) + 
   geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "dodge")+
   scale_colour_brewer(palette = "BrBG") +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 
 
-#dodge <- position_dodge(width = 0.9)+
-
-#gg <- ggplot(df)
-#gg <- gg + geom_bar(aes(x = Gender, y = Collecting, fill = Gender), 
-  #                  position="dodge", stat = "identity")
-
-
-#print(gg)
-
-#ggplot(df, aes(x = interaction(Gender,Collecting), y = yield, fill = factor(geno))) +
- # geom_bar(stat = "identity", position = position_dodge()) +
-  #geom_errorbar(aes(ymax = yield + SE, ymin = yield - SE), position = dodge, width = 0.2)
+groupedBarGenderCollecting
 
 ```
 
-Better plot
+A better proportional graph. This chunk also contains the code to reorder variables manually.
 ```{r}
-ggplot(data = df) + 
-  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
-  scale_colour_brewer(palette = "BrBg") +
-  scale_fill_brewer(palette = "BrBG")
-```
-
-This chunk contains the code to reorder variables manually. Finally figured out how to reorder this stuff. Goodness.
-```{r}
-
 data_new <- df
 df <- data_new
 
@@ -456,11 +461,93 @@ df <- data_new
 ggplot(data = data_new) + 
   geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
   scale_colour_brewer(palette = "BrBg") +
-  scale_fill_brewer(palette = "BrBG")
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
 
 ```
+Not bad, however the not sure/not applicable bit is distorting our visual analysis.
 
-This will be the bread and butter of this assignment. It looks beautiful. Waffle Graph, must have info input manually. Still breautiful.
+
+Same proportional graph, without Not Applicable variable value
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
+
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
+
+
+#### Gender Against Analyzing Data
+
+
+
+#### Gender Against Designing robust reproducible experiments
+
+
+
+#### Gender Against Writing a paper for publication in a peer-reviewed journal
+
+
+
+#### Gender Against Developing resilience to manage rejection by a peer review panel
+
+
+
+#### Gender Against Presenting findings to a specialist audience
+
+
+
+#### Gender Against Presenting findings to a non-specialist (public) audience
+
+
+
+#### Gender Against Finding a satisfying career
+
+
+
+#### Gender Against Managing complex projects
+
+
+
+#### Gender Against Developing a business plan
+
+
+
+#### Gender Against Managing people
+
+
+
+#### Gender Against Managing a large operational budget
+
+
+
+#### Gender Against I feel that my programme is preparing me well for a research career
+
+
+
+#### Gender Against I feel that my programme is perparing me well for a non-research science-related career
+
+
+
+#### Gender Against I feel that my programme is preparing me well for a career that straddles both industry and academia
+
+
+
+
+This will be the bread and butter of this assignment. It looks beautiful. Waffle Graph, must have info input manually. Still beautiful.
 ```{r}
 parts <- c(`Un-breached\nUS Population` = (318 - 11 - 79), `Premera` = 11, `Anthem` = 79)
 
@@ -470,6 +557,11 @@ waffle(
 )
 ```
 
+
+
+
+
+
 Analysis that isn't working yet
 ```{r}
 #lm1 <- lm(data = df, Collecting ~ Gender) # the model
@@ -478,19 +570,48 @@ Analysis that isn't working yet
 ```
 
 
-Misc Example Code
-```{r}
 
+
+
+
+
+
+
+
+
+
+
+
+### Appendix: Misc Example Code Area
+
+How to rename once
+```{r}
 ###AV Script to rename one or multiples, same for multiples but just repeat first line till the end and second line once at the end. Both lines are required for a successful renaming and creation of a new data frame. I have no idea why.
 
 #df14 <- names(df13)[1] <- "Collecting" 
 #df14 <- df13
 
-
-###AV 
-
 ```
 
+Basic plot
+```{r}
+#ggplot(data = df) + 
+    ###actual plot bit
+ # geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+    ###color
+  #scale_colour_brewer(palette = "BrBg") +
+   #scale_fill_brewer(palette = "BrBG") +
+  ### Makes sure that the names/titles/labels do not overlap
+     #scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
+
+Creating new data frames by selecting only rows with a certain value
+```{r}
+#Possibly create new dataframes by row value
+#df12Male <- df12[df12$'Gender' == 'Male (including trans male)',]
+#df12Female <- df12[df12$'Gender' == 'Female (including trans female)',]
+#df12GenderQueerandorNonBinary <- df12[df12$'Gender' == 'Gender queer / Non binary',]
+```
 
 ```{r}
 
