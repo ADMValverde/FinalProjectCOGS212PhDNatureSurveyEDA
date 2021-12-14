@@ -62,7 +62,7 @@ Load in Libraries and Installations
 ```{r}
 library(tidyverse)
 library(readxl)
-tinytex::install_tinytex()
+library(ggplot2)
 library(tinytex)
 ```
 
@@ -375,21 +375,40 @@ df12GenderQueerandorNonBinary <- df12[df12$'Gender' == 'Gender queer / Non binar
 
 Analysis of Gender Variations in Training Satisfaction
 ```{r}
+#str(df12)
+#summary(df12)
+```
 
 
 
+```{r}
+df13 <- df12Male
 
+df14 <- names(df13)[1] <- "Collecting" 
+ggplot(df13, aes( Collecting, colour = Gender)) + 
+  geom_bar()
 ```
 
 
 
 ```{r}
 
-```
+df15 <- names(df12)[1] <- "Collecting"
+df15 <- df12
+df <- df15
+
+#dodge <- position_dodge(width = 0.9)+
+
+#gg <- ggplot(df)
+#gg <- gg + geom_bar(aes(x = Gender, y = Collecting, fill = Gender), 
+  #                  position="dodge", stat = "identity")
 
 
+#print(gg)
 
-```{r}
+#ggplot(df, aes(x = interaction(Gender,Collecting), y = yield, fill = factor(geno))) +
+ # geom_bar(stat = "identity", position = position_dodge()) +
+  #geom_errorbar(aes(ymax = yield + SE, ymin = yield - SE), position = dodge, width = 0.2)
 
 ```
 
