@@ -15,10 +15,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ### I Mean Probably, IDK Though, Lets Find Out!
 
 
+
+
 ### Like All Good Articles, We Start With The Abstract
 
-#### Abstract
 
+
+
+#### Abstract
 
 A 2019 Nature survey of doctoral students worldwide conducted by Shift Learning, [a UK based education market research and consulting firm](https://www.shift-learning.co.uk/), demonstrated that PhD students are not doing all that well. The Nature [write up by Chris Woolston](https://www.nature.com/articles/d41586-019-03459-7) noted that more than a third of PhD students have sought help for anxiety or depression caused by their their PhD studies, and more than a fifth of PhD students had experienced discrimination or harassment in their PhD program. Prior research has backed up the concept that PhD students and graduate students at large aren't doing so hot, . As a PhD student I thought, "yeah, I feel it, its pretty bad, I'm pretty sad.". However I made a startling realization that at least I didn't have to deal with being an actual immigrant or a woman. But then one asks oneself, "huh, is it actually worse?". Maybe Bill O'Rielly was right when he said that women don't feel discrimination in the workplace.
 
@@ -30,19 +34,14 @@ https://group.springernature.com/gp/group/media/press-releases/archive-2019/natu
 https://www.zmescience.com/other/pieces/journals-to-blame-poor-phd-mental-health-0432/
 https://www.insidehighered.com/news/2019/11/14/phd-student-poll-finds-mental-health-bullying-and-career-uncertainty-are-top
 https://www.nature.com/articles/d41586-019-03535-y
-
 https://figshare.com/articles/dataset/Data_publication_survey_raw_data/1234052
 https://figshare.com/articles/dataset/Nature_Graduate_Survey_2017/5480716?file=9558301
-
 https://www.nature.com/articles/nj7677-549a
 
 
 
 
 ##### Background:
-
-
-
 
 This is the github post that lead me to the data set
 https://github.com/rfordatascience/tidytuesday/issues/153
@@ -69,9 +68,7 @@ library(ggdist)
 library(waffle)
 library(dplyr)
 ```
-
-
-Load in dataset that I downloaded from the link above(and which I placed into a "data" folder within the project folder) and check that it imported properly
+Load in data set that I downloaded from the link above(and which I placed into a "data" folder within the project folder) and check that it imported properly
 ```{r}
 dfog <- read_excel("data/Nature_PhD survey_Anon_v1.xlsx")
 ```
@@ -79,10 +76,12 @@ This is meant to ensure that it all was imported properly
 ```{r}
 glimpse(dfog)
 ```
-Just to check that the top has been preserved.
+Just to check that the top line has been preserved.
 ```{r}
 head(dfog)
 ```
+
+
 
 
 ##### DATA WRANGLIN' AN' CLEANIN'
@@ -108,7 +107,6 @@ remove all columns where all values are NA
 df5 <- df4
 df6a <- df5[ , colSums(is.na(df4)) < nrow(df4)]
 ```
-
 
 I have to rename columns that currently have the same name. I swear this data set was meant to frustrate me. Also I have to rename column 117 in df6a, because the column name is blank. Not sure how the bottom bit works with attributing df6 to df6a after I declared df6, but it does. I tried it other ways and it didn't output a df6. comment out df6 <- df6a and test yourself if ya like. I use this work flow to rename all repeated bits, because doing it any other way wont work, I tried dplyr's tools, didnt work. Only with base r.
 ```{r}
@@ -392,8 +390,7 @@ df <- df15
 
 
 
-
-### Graphs!!!
+#### Graphs!!!
 
 first graph, not incredibly interesting and also hampered by small sample size of Gender Queer/Non Binary  and Prefer Not To Say
 ```{r}
@@ -417,7 +414,6 @@ ggplot(data = df) +
   #geom_errorbar(aes(ymax = yield + SE, ymin = yield - SE), position = dodge, width = 0.2)
 
 ```
-
 
 Better plot
 ```{r}
@@ -446,7 +442,6 @@ ggplot(data = data_new) +
 
 ```
 
-
 This will be the bread and butter of this assignment. It looks beautiful. Waffle Graph, must have info input manually. Still breautiful.
 ```{r}
 parts <- c(`Un-breached\nUS Population` = (318 - 11 - 79), `Premera` = 11, `Anthem` = 79)
@@ -456,7 +451,6 @@ waffle(
   colors = c("#969696", "#1879bf", "#009bda"), legend_pos = "bottom"
 )
 ```
-
 
 Analysis that isnt working yet
 ```{r}
