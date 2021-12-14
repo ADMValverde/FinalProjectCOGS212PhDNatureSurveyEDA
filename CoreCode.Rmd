@@ -452,7 +452,7 @@ waffle(
 )
 ```
 
-Analysis that isnt working yet
+Analysis that isn't working yet
 ```{r}
 #lm1 <- lm(data = df, Collecting ~ Gender) # the model
 
