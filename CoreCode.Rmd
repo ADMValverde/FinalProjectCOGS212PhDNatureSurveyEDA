@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 A 2019 Nature survey of doctoral students worldwide conducted by Shift Learning, [a UK based education market research and consulting firm](https://www.shift-learning.co.uk/), demonstrated that PhD students are not doing all that well. The Nature [write up by Chris Woolston](https://www.nature.com/articles/d41586-019-03459-7) noted that more than a third of PhD students have sought help for anxiety or depression caused by their their PhD studies, and more than a fifth of PhD students had experienced discrimination or harassment in their PhD program. Prior research has backed up the concept that PhD students, and graduate students at large, aren't doing terribly well. As a PhD student I thought, "yeah, I feel it, its pretty bad, I'm pretty sad.". However I reassured myself that at least I didn't have to deal with being an actual immigrant or a woman. But then one asks oneself, "huh, is it actually worse?. Maybe Bill O'Rielly was right when he said that women don't feel discrimination in the workplace."
 
-To analyze if it is worse to be a woman, or an immigrant, as opposed to not those things, I analyzed Nature's data set as published on figshare. 
+To analyze if it is worse to be a woman or a gender queer/ non binary person, or an immigrant, as opposed to not those things, as a PhD student, I analyzed Nature's data set as published on figshare. 
 
 The results were xyz, abc, def, ghi, jkl, mno, pqr, stu, vwx, yza.
 
@@ -41,26 +41,28 @@ https://www.nature.com/articles/nj7677-549a
 
 Things are hard for PhD students. Research has demonstrated a persistent and severe toll on the mental health of PhD students due to the conditions that they are put under. More than a third have sought help for anxiety and depression caused by their PhD studies, and a fifth of PhD students have experienced discrimination and harassment in their program. A [2020 study of UK PhD students](https://onlinelibrary.wiley.com/doi/abs/10.1002/capr.12437?__cf_chl_jschl_tk__=2NIUSjRMyi_VDwOrxUtn3r60rXsjnFQeqsrPfr6T7pI-1639471304-0-gaNycGzNCH0) found that 40 percent of said students were at high risk of suicide, with 8 percent having made an attempt.
 
-That being said, every doctoral student's experience is not the same. Some student's experiences are worse. U.S. based doctoral students originating from China also have to deal with [isolation, loneliness, and alienation](https://eric.ed.gov/?id=EJ1133943). Some trans students have to deal with severe hostility or insensitivity related to their gender identity or expression, leading suicide attempts rates [four times higher than trans students who did not have that severe experience](https://psycnet.apa.org/record/2012-27680-006). It is therefore very unfortunate that this survey lumped transgendered and cisgendered people into one variable. Erasure, especially in research, has [consequential and damaging effects on trans people](https://www.sciencedirect.com/science/article/abs/pii/S1055329009001071).Gender queer and non-conforming was included, so I will attempt an analysis, however that was a very small number of persons, so I may not be able to demonstrate a significant difference even if one is liable to exist.
+That being said, every doctoral student's experience is not the same. Some student's experiences are worse. U.S. based doctoral students originating from China also have to deal with [isolation, loneliness, and alienation](https://eric.ed.gov/?id=EJ1133943). Some trans students have to deal with severe hostility or insensitivity related to their gender identity or expression, leading suicide attempts rates [four times higher than trans students who did not have that severe experience](https://psycnet.apa.org/record/2012-27680-006). It is therefore very unfortunate that this survey lumped transgendered and cisgendered people into one variable. Erasure, especially in research, has [consequential and damaging effects on trans people](https://www.sciencedirect.com/science/article/abs/pii/S1055329009001071).Gender queer and non-conforming was included, so I will attempt an analysis. However people identifying as such were few, so I may not be able to demonstrate a significant difference even if one is liable to exist. It is also important to note that gender-specific [approaches yield more accurate results, contribute to lessening the paucity of trans research, and are considered best practice](https://www.liebertpub.com/doi/full/10.1089/trgh.2020.0054).
 
-I must note that I am a minority doctoral student myself, however my analysis does not focus on racial discrimination. While I am a minority in my department and in my country, I am not an immigrant, nor am I a minority in the state or city where I am studying (Merced, California). I struggle with no language barrier, no one chides me for my voice, and I can travel freely throughout my campus and the city I reside in. I note this because, while my analysis of the data stands on its own, my experience is such that I am not able to speak from direct experience, and that is a limiatation on my work.
+I must note that I am a minority doctoral student myself. While I am a minority in my department and in my country, I am not an immigrant, nor am I a minority in the state or city where I am studying (Merced, California). I struggle with no language barrier, no one chides me for my voice, and I can travel freely throughout my campus and the city I reside in. I note this because, while my analysis of the data stands on its own, my identity is such that I am not able to speak from direct experience, and that is a limitation within this work.
 
-
-I would have analyzed the data for trans people, however, they're rolled into the male and female.
-
-
-
-This is the github post that lead me to the data set
-https://github.com/rfordatascience/tidytuesday/issues/153
-This is the dataset
-https://figshare.com/s/74a5ea79d76ad66a8af8
-This is the course that I am writing this code for
-https://data-science-methods.github.io/project/
+I was lead to this dataset by a [tidytuesday post on github](https://github.com/rfordatascience/tidytuesday/issues/153), and this research was completed as the final assignment for Dr. Dan Hicks' [data science methods course](https://data-science-methods.github.io/project/) at UC Merced. The data set used in this analysis was sourced from [this figshare page](https://figshare.com/s/74a5ea79d76ad66a8af8).
 
 
 
 
 #### Methods
+
+##### The PhD Student Survey's History
+
+Nature has had a survey of doctoral students conducted every two years for ten years. The latest survey, conducted in 2019, was advertised by Nature in its "Career News" section, and was titled, "Nature calling: take our PhD survey". This survey was conducted by an English corporation by the name of Shift Insight. Shift Insight is the owning and operating body of Shift Learning, Shift Sustainability, and Shift Membership. This corporation is owned by Jane Powell, a former Publisher at Pearson and Palgrave Macmillan. Shift Insight mainly performs market research, however as with the Nature survey they also conduct public facing research for large institutions. Most staff at Shift Insights have a marketing, writing, or publishing background.
+
+Their website's language seems to demonstrate commitments to data security, however these amount to either declarations of compliance strictly within the confines of the law, or membership with non-binding commerce and industry associations. Unfortunately for participants, the 2019 survey failed to remove all personally identifying information, specifically the emails of two students and the names of two others, according to my own analysis where I found two names and emails. 
+
+The finance director and data compliance officer, Jack Wilson, appears to have no credentials to handle said data, unlike some of his co-workers, and seems to have been educated at "LAMBDA" without any named degree, according to their linkedin profile. While I could not locate a university by the name of LAMBDA, it is possible that this education was associated with a fraternal organization,and it is also quite possible that Jack Wilson graduated with that education at the top of their class. I mention this not because I want to dunk on these people, but rather because their seemingly irresponsible handling of data could have some real consequences for those people who have had their data exposed. I also mention this because Shift appears to have existed for 20 years but has only had moderately to mildly credentialed persons on staff for seven years. This, along with the founders recent certification and education in R may help explain why the data arrived in a state that was not in line with tidy data principles, and why the analysis of the data was relatively limited.
+
+
+Bruv graduated top of his frat. Lol
+
 
 paste this in to hide output, code, and code: {r someVar,results='hide', echo=FALSE,include=FALSE}
 
