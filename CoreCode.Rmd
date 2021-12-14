@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = TRUE)
 #### Abstract
 
 
-A 2019 Nature survey of doctoral students worldwide conducted by Shift Learning, [a UK based education market research and consulting firm](https://www.shift-learning.co.uk/), demonstrated that PhD students are not doing all that well. The Nature [write up by Chris Woolston](https://www.nature.com/articles/d41586-019-03459-7) noted that xyz bad things. Prior research has backed up the concept that PhD students and graduate students at large arent doing so hot. As a PhD student I thought, "yeah, I feel it, its pretty bad, I'm pretty sad.". However I made a startling realization that at least I didn't have to deal with being an actual immigrant or a woman. But then one asks oneself, "huh, is it actually worse?". Maybe Bill O'Rielly was right when he said that women don't feel discrimination in the workplace.
+A 2019 Nature survey of doctoral students worldwide conducted by Shift Learning, [a UK based education market research and consulting firm](https://www.shift-learning.co.uk/), demonstrated that PhD students are not doing all that well. The Nature [write up by Chris Woolston](https://www.nature.com/articles/d41586-019-03459-7) noted that more than a third of PhD students have sought help for anxiety or depression caused by their their PhD studies, and more than a fifth of PhD students had experienced discrimination or harassment in their PhD program. Prior research has backed up the concept that PhD students and graduate students at large aren't doing so hot, . As a PhD student I thought, "yeah, I feel it, its pretty bad, I'm pretty sad.". However I made a startling realization that at least I didn't have to deal with being an actual immigrant or a woman. But then one asks oneself, "huh, is it actually worse?". Maybe Bill O'Rielly was right when he said that women don't feel discrimination in the workplace.
 
 To analyze if it is worse to be a woman, or an immigrant, as opposed to not those things, I analyzed Nature's data set as published on figshare. I would have analyzed the data for trans people, however, they're rolled into the male and female. Gender queer was included, so I will attempt an analysis, however that was a very small number of persons, so I may not be able to demonstrate a significant difference even if one is liable to exist (previous research indicates significant differences with all of the aforementioned groups). 
 
@@ -57,9 +57,10 @@ https://data-science-methods.github.io/project/
 #### Methods
 
 
+paste this in to hide output, code, and code: {r someVar,results='hide', echo=FALSE,include=FALSE}
 
 Load in Libraries and Installations
-```{r someVar,results='hide', echo=FALSE,include=FALSE}
+```{r}
 library(tidyverse)
 library(readxl)
 library(ggplot2)
@@ -411,6 +412,14 @@ df15 <- df12
 df <- df15
 ```
 
+
+
+
+
+
+
+### Graphs!!!
+
 first graph, not incredibly interesting and also hampered by small sample size of Gender Queer/Non Binary  and Prefer Not To Say
 ```{r}
 ggplot(data = df) + 
@@ -435,13 +444,16 @@ ggplot(data = df) +
 ```
 
 
-
+Better plot
 ```{r}
 ggplot(data = df) + 
   geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
   scale_colour_brewer(palette = "BrBg") +
   scale_fill_brewer(palette = "BrBG")
 ```
+
+
+better plot that fails at reordering variables
 ```{r}
 
 
@@ -458,7 +470,7 @@ ggplot(data = data_new) +
 ```
 
 
-Finally figured out how to reorder this stuff. Goodness.
+This chunk contains the code to reorder variables manually. Finally figured out how to reorder this stuff. Goodness.
 ```{r}
 
 
@@ -482,10 +494,7 @@ ggplot(data = data_new) +
 ```
 
 
-
-
-
-trash graph, redo
+trash graph, redo later
 ```{r}
 df %>%
   ggplot(aes(x=Gender, y= Collecting)) +
@@ -494,7 +503,7 @@ df %>%
 ```
 
 
-This will be the bread and butter of this assignment. It looks beautiful.
+This will be the bread and butter of this assignment. It looks beautiful. Waffle Graph, must have info input manually. Still breautiful.
 ```{r}
 parts <- c(`Un-breached\nUS Population` = (318 - 11 - 79), `Premera` = 11, `Anthem` = 79)
 
