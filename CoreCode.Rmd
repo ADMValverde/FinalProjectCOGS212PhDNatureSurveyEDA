@@ -15,14 +15,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ### I Mean Probably, IDK Though, Lets Find Out!
 
 
-
-
-### Like All Good Articles, We Start With The Abstract
-
-
-
-
 #### Abstract:
+
+
 
 A 2019 Nature survey of doctoral students worldwide conducted by Shift Learning, [a UK based education market research and consulting firm](https://www.shift-learning.co.uk/), demonstrated that PhD students are not doing all that well. The Nature [write up by Chris Woolston](https://www.nature.com/articles/d41586-019-03459-7) noted that more than a third of PhD students have sought help for anxiety or depression caused by their their PhD studies, and more than a fifth of PhD students had experienced discrimination or harassment in their PhD program. Prior research has backed up the concept that PhD students and graduate students at large aren't doing so hot, . As a PhD student I thought, "yeah, I feel it, its pretty bad, I'm pretty sad.". However I made a startling realization that at least I didn't have to deal with being an actual immigrant or a woman. But then one asks oneself, "huh, is it actually worse?". Maybe Bill O'Rielly was right when he said that women don't feel discrimination in the workplace.
 
@@ -307,20 +302,11 @@ df6 <- names(df6a)[260] <- "CaringResponsibilities5"
 
 df6 <- names(df6a)[242] <- "Gender" 
 
-#df6 <- names(df5)[20] <- "delete2"  
-#df6 <- names(df6a)[] <- "" 
 df6 <- df6a
 
-#code adapted from https://www.statology.org/how-to-rename-data-frame-columns-in-r/ and https://www.sharpsightlabs.com/blog/rename-columns-in-r/
-#df6 <- names(df5) <- c("miles_gallon", "cylinders", "display", "horsepower")
-
-###AV This bottom bit told me what I am missing to rename and make not identical
+###AV Workflow Notes
+###AV This bit told me what I am missing to rename and make not identical
 ###rename(df6, combine1 = 150)
-
-
-###df6 <- rename(df5, xyz=1) ###AV Didnt Work. Will use something other than rename
-
-###df6 %>% unite("ethnicity", 251:259, remove = FALSE)
 
 ###AV Template for above
 ####AV Rename all duplicates of "" and make unique
@@ -329,6 +315,8 @@ df6 <- df6a
 #df6 <- names(df6a)[] <- "" 
 #df6 <- names(df6a)[] <- "" 
 #df6 <- names(df6a)[] <- "" 
+
+
 
 ###Finished Product: df7
 df7 <- df6
@@ -349,52 +337,72 @@ df11 <- unite(df10, "ethnicityOtherWriteInIncluded", c('ethnicityOtherWriteInNot
 
 Well, doing that wasn't quite useful, because now I will focus on PEOPLE WHO MOVED INTO A COUNTRY FROM ELSEWHERE. Not on ethnicity. But this is EDA, so the clear and distinct lack of direction is a feature, not a bug.
 ```{r}
-#df12 <- df11[c(201:216)]
-#df13 <- df11[c(242)]
-#df14 <- merge(df12,df13) ###running this causes an error *** recursive gc invocation... which then causes a Rstudio to crash.
-#df[df$var1 == 'value', ] 
-
-###df12 contains gender, 
+###df12 contains Gender, 
 df12 <- df11[c(201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,242)]
 
 df12Male <- df12[df12$'Gender' == 'Male (including trans male)',]
 df12Female <- df12[df12$'Gender' == 'Female (including trans female)',]
 df12GenderQueerandorNonBinary <- df12[df12$'Gender' == 'Gender queer / Non binary',]
-
+###Use the above df12*gender* bits to create separate graphs and then mash together possibly.
 ```
 
-Rename Variable to be analyzed and Count of Gender
-```{r}
-df13 <- df12Male
 
-df14 <- names(df13)[1] <- "Collecting" 
-ggplot(df13, aes( Collecting, colour = Gender)) + 
+Whole workflow for analysis
+```{r}
+
+###Select relevant columns/variables
+df12 <- df11[c(201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,242)]
+
+#Possibly create new dataframes by row value
+#df12Male <- df12[df12$'Gender' == 'Male (including trans male)',]
+#df12Female <- df12[df12$'Gender' == 'Female (including trans female)',]
+#df12GenderQueerandorNonBinary <- df12[df12$'Gender' == 'Gender queer / Non binary',]
+
+### Rename Variable/Column to be analyzed, the dependent, by index
+df13M <- df12
+df14M <- df13M
+df14M <- names(df13M)[1] <- "Collecting"
+
+###Plot the bit
+ggplot(df13M, aes( Collecting, colour = Gender)) + 
   geom_bar()
 
-dfgender <- table(df12['Gender'])
-df15<- as.data.frame(dfgender)
+###Output A Table and dataframe with the values needed
+tableGender <- table(df12['Gender'])
+genderCount<- as.data.frame(tableGender)
 
-
+###Proportional Analysis
 table(df12$Gender)/length(df12$Gender)
 
+###Renaming and Plot
+
+barplotMCollectingData <- ggplot(df14M, aes( Collecting, colour = Gender)) + 
+  geom_bar()
+
+genderProportion <- as.data.frame(table(df12$Gender)/length(df12$Gender))
+#barplotMCollectingData
 ```
+
 
 Rename Variable to be analyzed and Analysis
 ```{r}
 df13 <- df12Male
-
+###AV both lines are required for a sucessful renaming and creation of a new dataframe. I have no idea why.
 df14 <- names(df13)[1] <- "Collecting" 
-barplotMCollectingData <- ggplot(df13, aes( Collecting, colour = Gender)) + 
+df14 <- df13
+
+barplotMCollectingData <- ggplot(df14, aes( Collecting, colour = Gender)) + 
   geom_bar()
 
 dfgender <- table(df12['Gender'])
 genderCount <- as.data.frame(dfgender)
 
 genderProportion <- as.data.frame(table(df12$Gender)/length(df12$Gender))
+barplotMCollectingData
 ```
 
 
-Some more data transformations and another rename.
+Some more data transformations and another rename, so that I could copy and paste from online sources which predominantly use "df" or "data" and not df23 or whatever I'm doing. here is where i seem to have renamed df12's collecting and not df12m's accounting for the difference between the two.
 ```{r}
 
 df15 <- names(df12)[1] <- "Collecting"
