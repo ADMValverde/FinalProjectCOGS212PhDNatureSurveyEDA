@@ -64,6 +64,10 @@ library(tidyverse)
 library(readxl)
 library(ggplot2)
 library(tinytex)
+library(RColorBrewer)
+library(ggdist)
+library(waffle)
+library(dplyr)
 ```
 
 
@@ -377,16 +381,25 @@ Analysis of Gender Variations in Training Satisfaction
 ```{r}
 #str(df12)
 #summary(df12)
+
+#[1] 5
 ```
 
 
-
+the actual analysis to be graphed! Woo!!!
 ```{r}
 df13 <- df12Male
 
 df14 <- names(df13)[1] <- "Collecting" 
 ggplot(df13, aes( Collecting, colour = Gender)) + 
   geom_bar()
+
+dfgender <- table(df12['Gender'])
+df15<- as.data.frame(dfgender)
+
+
+table(df12$Gender)/length(df12$Gender)
+
 ```
 
 
@@ -396,6 +409,9 @@ ggplot(df13, aes( Collecting, colour = Gender)) +
 df15 <- names(df12)[1] <- "Collecting"
 df15 <- df12
 df <- df15
+
+ggplot(data = df) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "dodge")
 
 #dodge <- position_dodge(width = 0.9)+
 
@@ -415,31 +431,43 @@ df <- df15
 
 
 ```{r}
-
+ggplot(data = df) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")
 ```
 
 
 
 ```{r}
-
+ggplot(data = df) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "dodge", colour = "BrBg")
 ```
 
 
 
 ```{r}
-
+df %>%
+  ggplot(aes(x=Gender, y= Collecting)) +
+  stat_histinterval(position = "dodge") +
+ theme_ggdist()
 ```
 
 
 
 ```{r}
+parts <- c(`Un-breached\nUS Population` = (318 - 11 - 79), `Premera` = 11, `Anthem` = 79)
 
+waffle(
+  parts, rows = 8, size = 1,
+  colors = c("#969696", "#1879bf", "#009bda"), legend_pos = "bottom"
+)
 ```
 
 
 
 ```{r}
+lm1 <- lm(data = df, Collecting ~ Gender) # the model
 
+summary(lm1) # summarizes the output of the model
 ```
 
 
