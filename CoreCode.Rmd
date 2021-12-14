@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 
-#### Abstract
+#### Abstract:
 
 A 2019 Nature survey of doctoral students worldwide conducted by Shift Learning, [a UK based education market research and consulting firm](https://www.shift-learning.co.uk/), demonstrated that PhD students are not doing all that well. The Nature [write up by Chris Woolston](https://www.nature.com/articles/d41586-019-03459-7) noted that more than a third of PhD students have sought help for anxiety or depression caused by their their PhD studies, and more than a fifth of PhD students had experienced discrimination or harassment in their PhD program. Prior research has backed up the concept that PhD students and graduate students at large aren't doing so hot, . As a PhD student I thought, "yeah, I feel it, its pretty bad, I'm pretty sad.". However I made a startling realization that at least I didn't have to deal with being an actual immigrant or a woman. But then one asks oneself, "huh, is it actually worse?". Maybe Bill O'Rielly was right when he said that women don't feel discrimination in the workplace.
 
@@ -465,13 +465,9 @@ Analysis that isn't working yet
 
 ```
 
-
-
 ```{r}
 
 ```
-
-
 
 ```{r}
 
