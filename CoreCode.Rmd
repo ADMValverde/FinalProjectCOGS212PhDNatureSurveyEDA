@@ -348,7 +348,9 @@ df12GQNB <- df12[df12$'Gender' == 'Gender queer / Non binary',]
 ###Use the above df12*gender* bits to create separate graphs and then mash together possibly.
 ```
 
+
 ---Everything Below this line probably requires df12 or some variation of df11---
+
 
 Gender count and gender proportion analysis and data frame creation
 ```{r}
@@ -361,7 +363,8 @@ table(df12$Gender)/length(df12$Gender)
 genderProportion <- as.data.frame(table(df12$Gender)/length(df12$Gender))
 ```
 
-Whole workflow for analysis
+
+Whole workflow for analysis using Male (including trans male) value selection
 ```{r}
 
 ###Select relevant columns/variables
@@ -377,41 +380,38 @@ df13M <- df12M
 df14M <- df13M
 df14M <- names(df13M)[1] <- "Collecting"
 df14M <- df13M
+
+
 ###Plot the bit
 #ggplot(df14M, aes( Collecting, colour = Gender)) +   geom_bar() ###Just another way to plot the data
+
 barplotMCollectingData <- ggplot(df14M, aes( Collecting, colour = Gender)) + 
   geom_bar()
 
-###Output A Table and dataframe with the values needed
-tableGender <- table(df12['Gender'])
-genderCount<- as.data.frame(tableGender)
 
-###Proportional Analysis
-table(df12$Gender)/length(df12$Gender)
-genderProportion <- as.data.frame(table(df12$Gender)/length(df12$Gender))
-###Plot
-
+###Display Plot
 barplotMCollectingData
+
 ```
 
 
 Rename Variable to be analyzed and Analysis
 ```{r}
-df13 <- df12Male
+#df13 <- df12M
 
 ###AV both lines are required for a sucessful renaming and creation of a new dataframe. I have no idea why.
-df14 <- names(df13)[1] <- "Collecting" 
-df14 <- df13
+#df14 <- names(df13)[1] <- "Collecting" 
+#df14 <- df13
 
 
-barplotMCollectingData <- ggplot(df14, aes( Collecting, colour = Gender)) + 
-  geom_bar()
+#barplotMCollectingData <- ggplot(df14, aes( Collecting, colour = Gender)) + 
+ # geom_bar()
 
-dfgender <- table(df12['Gender'])
-genderCount <- as.data.frame(dfgender)
+#dfgender <- table(df12['Gender'])
+#genderCount <- as.data.frame(dfgender)
 
-genderProportion <- as.data.frame(table(df12$Gender)/length(df12$Gender))
-barplotMCollectingData
+#genderProportion <- as.data.frame(table(df12$Gender)/length(df12$Gender))
+#barplotMCollectingData
 ```
 
 
