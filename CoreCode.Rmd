@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 
-A 2019 Nature survey of doctoral students worldwide conducted by Shift Learning, [a UK based education market research and consulting firm](https://www.shift-learning.co.uk/), demonstrated that PhD students are not doing all that well. The Nature [write up by Chris Woolston](https://www.nature.com/articles/d41586-019-03459-7) noted that more than a third of PhD students have sought help for anxiety or depression caused by their their PhD studies, and more than a fifth of PhD students had experienced discrimination or harassment in their PhD program. Prior research has backed up the concept that PhD students and graduate students at large aren't doing so hot, . As a PhD student I thought, "yeah, I feel it, its pretty bad, I'm pretty sad.". However I made a startling realization that at least I didn't have to deal with being an actual immigrant or a woman. But then one asks oneself, "huh, is it actually worse?". Maybe Bill O'Rielly was right when he said that women don't feel discrimination in the workplace.
+A 2019 Nature survey of doctoral students worldwide conducted by Shift Learning, [a UK based education market research and consulting firm](https://www.shift-learning.co.uk/), demonstrated that PhD students are not doing all that well. The Nature [write up by Chris Woolston](https://www.nature.com/articles/d41586-019-03459-7) noted that more than a third of PhD students have sought help for anxiety or depression caused by their their PhD studies, and more than a fifth of PhD students had experienced discrimination or harassment in their PhD program. Prior research has backed up the concept that PhD students and graduate students at large aren't doing so hot. As a PhD student I thought, "yeah, I feel it, its pretty bad, I'm pretty sad.". However I realized that at least I didn't have to deal with being an actual immigrant or a woman. But then one asks oneself, "huh, is it actually worse?. Maybe Bill O'Rielly was right when he said that women don't feel discrimination in the workplace."
 
 To analyze if it is worse to be a woman, or an immigrant, as opposed to not those things, I analyzed Nature's data set as published on figshare. I would have analyzed the data for trans people, however, they're rolled into the male and female. Gender queer was included, so I will attempt an analysis, however that was a very small number of persons, so I may not be able to demonstrate a significant difference even if one is liable to exist (previous research indicates significant differences with all of the aforementioned groups). 
 
@@ -340,9 +340,9 @@ Well, doing that wasn't quite useful, because now I will focus on PEOPLE WHO MOV
 ###df12 contains Gender, 
 df12 <- df11[c(201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,242)]
 
-df12Male <- df12[df12$'Gender' == 'Male (including trans male)',]
-df12Female <- df12[df12$'Gender' == 'Female (including trans female)',]
-df12GenderQueerandorNonBinary <- df12[df12$'Gender' == 'Gender queer / Non binary',]
+df12M <- df12[df12$'Gender' == 'Male (including trans male)',]
+df12F <- df12[df12$'Gender' == 'Female (including trans female)',]
+df12GQNB <- df12[df12$'Gender' == 'Gender queer / Non binary',]
 ###Use the above df12*gender* bits to create separate graphs and then mash together possibly.
 ```
 
@@ -359,12 +359,12 @@ df12 <- df11[c(201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,2
 #df12GenderQueerandorNonBinary <- df12[df12$'Gender' == 'Gender queer / Non binary',]
 
 ### Rename Variable/Column to be analyzed, the dependent, by index
-df13M <- df12
+df13M <- df12M
 df14M <- df13M
 df14M <- names(df13M)[1] <- "Collecting"
-
+df14M <- df13M
 ###Plot the bit
-ggplot(df13M, aes( Collecting, colour = Gender)) + 
+ggplot(df14M, aes( Collecting, colour = Gender)) + 
   geom_bar()
 
 ###Output A Table and dataframe with the values needed
@@ -373,13 +373,13 @@ genderCount<- as.data.frame(tableGender)
 
 ###Proportional Analysis
 table(df12$Gender)/length(df12$Gender)
-
+genderProportion <- as.data.frame(table(df12$Gender)/length(df12$Gender))
 ###Renaming and Plot
 
 barplotMCollectingData <- ggplot(df14M, aes( Collecting, colour = Gender)) + 
   geom_bar()
 
-genderProportion <- as.data.frame(table(df12$Gender)/length(df12$Gender))
+
 #barplotMCollectingData
 ```
 
@@ -387,9 +387,11 @@ genderProportion <- as.data.frame(table(df12$Gender)/length(df12$Gender))
 Rename Variable to be analyzed and Analysis
 ```{r}
 df13 <- df12Male
+
 ###AV both lines are required for a sucessful renaming and creation of a new dataframe. I have no idea why.
 df14 <- names(df13)[1] <- "Collecting" 
 df14 <- df13
+
 
 barplotMCollectingData <- ggplot(df14, aes( Collecting, colour = Gender)) + 
   geom_bar()
