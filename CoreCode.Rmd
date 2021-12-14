@@ -363,7 +363,7 @@ df12GenderQueerandorNonBinary <- df12[df12$'Gender' == 'Gender queer / Non binar
 
 ```
 
-the actual analysis to be graphed! Woo!!! Also, unfortunately I cannot name things with spaces, as that seems to break things.
+Rename Variable to be analyzed and Count of Gender
 ```{r}
 df13 <- df12Male
 
@@ -378,6 +378,21 @@ df15<- as.data.frame(dfgender)
 table(df12$Gender)/length(df12$Gender)
 
 ```
+
+Rename Variable to be analyzed and Analysis
+```{r}
+df13 <- df12Male
+
+df14 <- names(df13)[1] <- "Collecting" 
+barplotMCollectingData <- ggplot(df13, aes( Collecting, colour = Gender)) + 
+  geom_bar()
+
+dfgender <- table(df12['Gender'])
+genderCount <- as.data.frame(dfgender)
+
+genderProportion <- as.data.frame(table(df12$Gender)/length(df12$Gender))
+```
+
 
 Some more data transformations and another rename.
 ```{r}
