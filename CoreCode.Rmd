@@ -300,8 +300,10 @@ df6 <- names(df6a)[258] <- "CaringResponsibilities3"
 df6 <- names(df6a)[259] <- "CaringResponsibilities4" 
 df6 <- names(df6a)[260] <- "CaringResponsibilities5" 
 
-df6 <- names(df6a)[242] <- "Gender" 
 
+
+###AV Final Important Bits one more rename and the declaration that makes renaming work.
+df6 <- names(df6a)[242] <- "Gender" 
 df6 <- df6a
 
 ###AV Workflow Notes
@@ -346,6 +348,18 @@ df12GQNB <- df12[df12$'Gender' == 'Gender queer / Non binary',]
 ###Use the above df12*gender* bits to create separate graphs and then mash together possibly.
 ```
 
+---Everything Below this line probably requires df12 or some variation of df11---
+
+Gender count and gender proportion analysis and data frame creation
+```{r}
+###Output A Table and dataframe with the values needed
+tableGender <- table(df12['Gender'])
+genderCount<- as.data.frame(tableGender)
+
+###Proportional Analysis
+table(df12$Gender)/length(df12$Gender)
+genderProportion <- as.data.frame(table(df12$Gender)/length(df12$Gender))
+```
 
 Whole workflow for analysis
 ```{r}
@@ -364,7 +378,8 @@ df14M <- df13M
 df14M <- names(df13M)[1] <- "Collecting"
 df14M <- df13M
 ###Plot the bit
-ggplot(df14M, aes( Collecting, colour = Gender)) + 
+#ggplot(df14M, aes( Collecting, colour = Gender)) +   geom_bar() ###Just another way to plot the data
+barplotMCollectingData <- ggplot(df14M, aes( Collecting, colour = Gender)) + 
   geom_bar()
 
 ###Output A Table and dataframe with the values needed
@@ -374,13 +389,9 @@ genderCount<- as.data.frame(tableGender)
 ###Proportional Analysis
 table(df12$Gender)/length(df12$Gender)
 genderProportion <- as.data.frame(table(df12$Gender)/length(df12$Gender))
-###Renaming and Plot
+###Plot
 
-barplotMCollectingData <- ggplot(df14M, aes( Collecting, colour = Gender)) + 
-  geom_bar()
-
-
-#barplotMCollectingData
+barplotMCollectingData
 ```
 
 
