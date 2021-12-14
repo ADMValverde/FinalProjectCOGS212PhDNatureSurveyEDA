@@ -403,15 +403,21 @@ table(df12$Gender)/length(df12$Gender)
 ```
 
 
-
+Some more data wrangling
 ```{r}
 
 df15 <- names(df12)[1] <- "Collecting"
 df15 <- df12
 df <- df15
+```
 
+first graph, not incredibly interesting and also hampered by small sample size of Gender Queer/Non Binary  and Prefer Not To Say
+```{r}
 ggplot(data = df) + 
-  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "dodge")
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "dodge")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG")
+
 
 #dodge <- position_dodge(width = 0.9)+
 
@@ -432,18 +438,54 @@ ggplot(data = df) +
 
 ```{r}
 ggplot(data = df) + 
-  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG")
 ```
-
-
-
 ```{r}
-ggplot(data = df) + 
-  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "dodge", colour = "BrBg")
+
+
+#dfnew1 <- df %>% arrange(Collecting) %>% mutate(name = factor(Collecting, levels=c("Very badly", "Badly", "Neither well not badly", "Well", "Very well", "Unsure/Not applicable")))
+
+
+data_new <- df                             
+data_new$group <- factor(data_new$Collecting,c("Very badly", "Badly", "Neither well not badly", "Well", "Very well", "Unsure/Not applicable"))
+ggplot(data = data_new) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG")
+
+```
+
+
+Finally figured out how to reorder this stuff. Goodness.
+```{r}
+
+
+#dfnew1 <- df %>% arrange(Collecting) %>% mutate(name = factor(Collecting, levels=c("Very badly", "Badly", "Neither well not badly", "Well", "Very well", "Unsure/Not applicable")))
+
+
+data_new <- df
+df <- data_new
+
+df$Collecting <- factor(df$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well", "Unsure/Not applicable"))
+
+data_new <- df
+df <- data_new
+
+
+ggplot(data = data_new) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG")
+
 ```
 
 
 
+
+
+trash graph, redo
 ```{r}
 df %>%
   ggplot(aes(x=Gender, y= Collecting)) +
@@ -452,7 +494,7 @@ df %>%
 ```
 
 
-
+This will be the bread and butter of this assignment. It looks beautiful.
 ```{r}
 parts <- c(`Un-breached\nUS Population` = (318 - 11 - 79), `Premera` = 11, `Anthem` = 79)
 
@@ -463,7 +505,7 @@ waffle(
 ```
 
 
-
+Analysis that isnt working yet
 ```{r}
 lm1 <- lm(data = df, Collecting ~ Gender) # the model
 
