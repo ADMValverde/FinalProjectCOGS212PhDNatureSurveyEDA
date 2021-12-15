@@ -437,9 +437,9 @@ Analysis for Collecting Data Variable against Gender, Count and Proportion
 
 
 ###Proportional Analysis
-CollectingProportion <- as.data.frame(table(df12$Collecting)/length(df12$Collecting))
+#CollectingProportion <- as.data.frame(table(df12$Collecting)/length(df12$Collecting))
 ###Display Output
-CollectingProportion
+#CollectingProportion
 ```
 
 Some data transformations and a rename, so that I could copy and paste from online sources which predominantly use "df" or "data" and not df23 or whatever I'm doing. Here is where I seem to have renamed df12's Collecting column and not df12m's, accounting for the difference between the two.
@@ -473,7 +473,7 @@ dfImm <- df15Imm
 
 ### Graphs!!!
 
-####Gender against Collecting Data 
+####Immigration against Collecting Data 
 first graph, not incredibly interesting and also hampered by small sample size of Gender Queer/Non Binary and Prefer Not To Say
 ```{r}
 
@@ -512,7 +512,8 @@ Not bad, however the not sure/not applicable bit is distorting our visual analys
 
 
 Same proportional graph, without Not Applicable variable value
-```{r}
+
+#```{r}
 ###New data frame, to ensure there are no issues down the line
 graphdf1gender <- df
 ###Keep all values that are not containing "Unsure/Not applicable"
