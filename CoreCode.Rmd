@@ -1,5 +1,5 @@
 ---
-title: "Immigration and Doctoral Dreariness"
+title: "Immigration, Gender, and Doctoral Dreariness"
 author: "Aramis D. M. Valverde"
 date: "12/10/2021"
 output:
@@ -73,7 +73,7 @@ The complete list of questions is available in the data documentation, specifica
 
 ##### Limitations
 The survey has a couple of issues with it.
-First is the fact that the data has been cleaned to an extent that has not been disclosed by shift insights. The amount of anonymization and the methods of cleaning the data from the vendor or software that was used to produce the data is not fully and clearly disclosed. Because of this we have no way of discerning what was removed or how the data was manipulated. I also could not attempt the ordinal surevy, as teh link had expired., https://wh1.snapsurveys.com/s.asp?k=162210914288&s=article it does appear to have been conducted through Snapsurveys.comhttps://www.snapsurveys.com/survey-software/pricing/. 
+First is the fact that the data has been cleaned to an extent that has not been disclosed by shift insights. The amount of anonymization and the methods of cleaning the data from the vendor or software that was used to produce the data is not fully and clearly disclosed. Because of this we have no way of discerning what was removed or how the data was manipulated. I also could not attempt the ordinal surevy, as the link had expired., https://wh1.snapsurveys.com/s.asp?k=162210914288&s=article it does appear to have been conducted through Snapsurveys.comhttps://www.snapsurveys.com/survey-software/pricing/. 
 
 Second is the fact that the participant pool is liable to have been skewed because of the method of advertisement (via Nature Careers) and because Shift Insights seems to reuse participantshttps://shift-insight.co.uk/respondent-faqs/. Even within this survey there were questions and language to indicate that this survey was also used to recruit to their participant pool. Because of their commercial interests and focus on market research, it is possible that their existing participant pool is incidentally selecting against some traits. For example, I am not liable to respond to an email from some random corporation doing market research, because I don't respect market researchers. This is partially mitigated against by the fact that some PhD students appear to have thought that Nature was conducting the survey and not Shift Insights, as they responded as if the people conducting the survey had some sort of authority in spite of the fact that they've nothing of the sort.
 
@@ -374,6 +374,12 @@ df11 <- unite(df10, "ethnicityOtherWriteInIncluded", c('ethnicityOtherWriteInNot
 
 Well, doing the above combination wasnt quite that useful, because now I will focus on PEOPLE WHO MOVED INTO A COUNTRY FROM ELSEWHERE AND GENDER. Not on ethnicity. But this is EDA, so the clear and distinct lack of direction is a feature, not a bug.
 
+
+
+###Note,  column 13 data frame 11 immigration, are you studying in the country you grew up in?
+
+
+
 ### Gender Analysis against Training and Readiness (Q50)
 
 Gender count and gender proportion analysis, and data frame creation
@@ -444,7 +450,23 @@ CollectingProportion
 Some data transformations and a rename, so that I could copy and paste from online sources which predominantly use "df" or "data" and not df23 or whatever I'm doing. Here is where I seem to have renamed df12's Collecting column and not df12m's, accounting for the difference between the two.
 ```{r}
 
-df15 <- names(df12)[1] <- "Collecting"
+df15 <- names(df12)[1]  <- "Collecting"
+df15 <- names(df12)[2]  <- "Analyzing"
+df15 <- names(df12)[3]  <- "Designing"
+df15 <- names(df12)[4]  <- "Writing"
+df15 <- names(df12)[5]  <- "DevResistance"
+df15 <- names(df12)[6]  <- "PresentingSpecialist"
+df15 <- names(df12)[7]  <- "PresentingPublic"
+df15 <- names(df12)[8]  <- "ApplyingFunding"
+df15 <- names(df12)[9]  <- "SatisCareer"
+df15 <- names(df12)[10] <- "MngCompProj"
+df15 <- names(df12)[11] <- "DevBusinessPlan"
+df15 <- names(df12)[12] <- "MngPeople"
+df15 <- names(df12)[13] <- "MngLargeBudget"
+df15 <- names(df12)[14] <- "FeelProgPrepResearch"
+df15 <- names(df12)[15] <- "FeelProgPrepScience"
+df15 <- names(df12)[16] <- "FeelProgPrepMixIndAcad"
+ 
 df15 <- df12
 df <- df15
 ```
@@ -455,7 +477,6 @@ df <- df15
 ### Graphs!!!
 
 ####Gender against Collecting Data 
-
 first graph, not incredibly interesting and also hampered by small sample size of Gender Queer/Non Binary and Prefer Not To Say
 ```{r}
 
@@ -469,7 +490,6 @@ groupedBarGenderCollecting <- ggplot(data = df) +
 groupedBarGenderCollecting
 
 ```
-
 A better proportional graph. This chunk also contains the code to reorder variables manually.
 ```{r}
 data_new <- df
@@ -489,6 +509,9 @@ ggplot(data = data_new) +
 
 ```
 Not bad, however the not sure/not applicable bit is distorting our visual analysis.
+
+
+
 
 
 Same proportional graph, without Not Applicable variable value
@@ -513,59 +536,344 @@ ggplot(data = data_new1) +
 ```
 
 
+
 #### Gender Against Analyzing Data
 
 
+REFORMAT
+Analyzing
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
+
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
 
 #### Gender Against Designing robust reproducible experiments
 
+REFORMAT
+reproducible
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
 
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
 
 #### Gender Against Writing a paper for publication in a peer-reviewed journal
 
+REFORMAT
+publication
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
 
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
 
 #### Gender Against Developing resilience to manage rejection by a peer review panel
 
+REFORMAT
+rejection
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
 
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
 
 #### Gender Against Presenting findings to a specialist audience
 
+REFORMAT
+Presentingspecialist
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
 
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
 
 #### Gender Against Presenting findings to a non-specialist (public) audience
 
+REFORMAT
+presentingpublic
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
 
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
 
 #### Gender Against Finding a satisfying career
 
+REFORMAT
+satisfying
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
 
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
 
 #### Gender Against Managing complex projects
 
+REFORMAT
+complexprojects
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
 
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
 
 #### Gender Against Developing a business plan
 
+REFORMAT
+businessplan
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
 
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
 
 #### Gender Against Managing people
 
+REFORMAT
+managingpeople
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
 
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
 
 #### Gender Against Managing a large operational budget
 
+REFORMAT
+managingoperationalbudget
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
 
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
 
 #### Gender Against I feel that my programme is preparing me well for a research career
 
+REFORMAT
+researchcareer
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
 
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
 
 #### Gender Against I feel that my programme is perparing me well for a non-research science-related career
 
+REFORMAT
+nonresearchsciencecareer
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
 
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
 
 #### Gender Against I feel that my programme is preparing me well for a career that straddles both industry and academia
+
+REFORMAT
+mixindustryacademiacareer
+```{r}
+###New data frame, to ensure there are no issues down the line
+graphdf1gender <- df
+###Keep all values that are not containing "Unsure/Not applicable"
+data_new1 <- graphdf1gender[!(graphdf1gender$Collecting == "Unsure/Not applicable"),]
+
+###Refresh old graphdf1gender with data_new1 info
+graphdf1gender <- data_new1
+
+###Set variable order
+graphdf1gender$Collecting <- factor(graphdf1gender$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
+
+##Plot
+ggplot(data = data_new1) + 
+  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBg") +
+  scale_fill_brewer(palette = "BrBG") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
+```
+
 
 
 
