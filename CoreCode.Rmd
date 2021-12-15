@@ -394,7 +394,6 @@ genderProportion <- as.data.frame(table(df11$Gender)/length(df11$Gender))
 genderProportion
 ```
 
-
 Creation of different data frames for analysis by gender, against training efficacy for certain tasks(Q50).
 ```{r}
 df12 <- df11[c(201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,242)]
@@ -403,8 +402,6 @@ df12M <- df12[df12$'Gender' == 'Male (including trans male)',]
 df12F <- df12[df12$'Gender' == 'Female (including trans female)',]
 df12GQNB <- df12[df12$'Gender' == 'Gender queer / Non binary',]
 ```
-
-
 
 Whole workflow for analysis using "Male (including trans male)" value row selection
 ```{r}
@@ -430,7 +427,6 @@ barplotMCollectingData
 
 ```
 
-
 Analysis for Collecting Data Variable against Gender, Count and Proportion
 ```{r}
 ###Output A Table and dataframe, possible first step in analysis given grouping. difficult to say, would replace collecting with M, F, GQNB, as derived from dfM, dfF, dfGQNB, then combine, then analyze.
@@ -444,8 +440,6 @@ CollectingProportion <- as.data.frame(table(df12$Collecting)/length(df12$Collect
 ###Display Output
 CollectingProportion
 ```
-
-
 
 Some data transformations and a rename, so that I could copy and paste from online sources which predominantly use "df" or "data" and not df23 or whatever I'm doing. Here is where I seem to have renamed df12's Collecting column and not df12m's, accounting for the difference between the two.
 ```{r}
@@ -470,7 +464,6 @@ df15 <- names(df12)[16] <- "FeelProgPrepMixIndAcad"
 df15 <- df12
 df <- df15
 ```
-
 
 
 
@@ -827,8 +820,6 @@ ggplot(data = graphdf1genderMngLargeBudget) +
 
 #### Gender Against I feel that my programme is preparing me well for a research career
 
-FIX
-
 FeelProgPrepResearch
 graphdf1genderFeelProgPrepResearch
 ```{r}
@@ -877,7 +868,6 @@ ggplot(data = graphdf1genderFeelProgPrepScience) +
 
 #### Gender Against I feel that my programme is preparing me well for a career that straddles both industry and academia
 
-REFORMAT
 FeelProgPrepMixIndAcad
 graphdf1genderFeelProgPrepMixIndAcad
 ```{r}
