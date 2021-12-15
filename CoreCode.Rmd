@@ -443,27 +443,30 @@ CollectingProportion
 ```
 
 Some data transformations and a rename, so that I could copy and paste from online sources which predominantly use "df" or "data" and not df23 or whatever I'm doing. Here is where I seem to have renamed df12's Collecting column and not df12m's, accounting for the difference between the two.
+
+##### MAKE MATCH THE BLOODY THINGS
 ```{r}
 
-df15 <- names(df12)[1]  <- "Collecting"
-df15 <- names(df12)[2]  <- "Analyzing"
-df15 <- names(df12)[3]  <- "Designing"
-df15 <- names(df12)[4]  <- "Writing"
-df15 <- names(df12)[5]  <- "DevResistance"
-df15 <- names(df12)[6]  <- "PresentingSpecialist"
-df15 <- names(df12)[7]  <- "PresentingPublic"
-df15 <- names(df12)[8]  <- "ApplyingFunding"
-df15 <- names(df12)[9]  <- "SatisCareer"
-df15 <- names(df12)[10] <- "MngCompProj"
-df15 <- names(df12)[11] <- "DevBusinessPlan"
-df15 <- names(df12)[12] <- "MngPeople"
-df15 <- names(df12)[13] <- "MngLargeBudget"
-df15 <- names(df12)[14] <- "FeelProgPrepResearch"
-df15 <- names(df12)[15] <- "FeelProgPrepScience"
-df15 <- names(df12)[16] <- "FeelProgPrepMixIndAcad"
- 
-df15 <- df12
-df <- df15
+df15Imm <- names(df12Imm)[1]  <- "Immigration"
+df15Imm <- names(df12Imm)[2]  <- "Analyzing"
+df15Imm <- names(df12Imm)[3]  <- "Designing"
+df15Imm <- names(df12Imm)[4]  <- "Writing"
+df15Imm <- names(df12Imm)[5]  <- "DevResistance"
+df15Imm <- names(df12Imm)[6]  <- "PresentingSpecialist"
+df15Imm <- names(df12Imm)[7]  <- "PresentingPublic"
+df15Imm <- names(df12Imm)[8]  <- "ApplyingFunding"
+df15Imm <- names(df12Imm)[9]  <- "SatisCareer"
+df15Imm <- names(df12Imm)[10] <- "MngCompProj"
+df15Imm <- names(df12Imm)[11] <- "DevBusinessPlan"
+df15Imm <- names(df12Imm)[12] <- "MngPeople"
+df15Imm <- names(df12Imm)[13] <- "MngLargeBudget"
+df15Imm <- names(df12Imm)[14] <- "FeelProgPrepResearch"
+df15Imm <- names(df12Imm)[15] <- "FeelProgPrepScience"
+df15Imm <- names(df12Imm)[16] <- "Collecting1"
+df15Imm <- names(df12Imm)[17] <- "Collecting"
+
+df15Imm <- df12Imm
+dfImm <- df15Imm
 ```
 
 
@@ -474,30 +477,30 @@ df <- df15
 first graph, not incredibly interesting and also hampered by small sample size of Gender Queer/Non Binary and Prefer Not To Say
 ```{r}
 
-groupedBarGenderCollecting <- ggplot(data = df) + 
-  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "dodge")+
+groupedBarGenderCollectingImm <- ggplot(data = dfImm) + 
+  geom_bar(mapping = aes(x = Immigration, fill = Collecting), position = "dodge")+
   scale_colour_brewer(palette = "BrBG") +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 
 
-groupedBarGenderCollecting
+groupedBarGenderCollectingImm
 
 ```
 A better proportional graph. This chunk also contains the code to reorder variables manually.
 ```{r}
-data_new <- df
-df <- data_new
+data_newImm <- dfImm
+dfImm <- data_newImm
 
-df$Collecting <- factor(df$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well", "Unsure/Not applicable"))
+dfImm$Collecting <- factor(dfImm$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well", "Unsure/Not applicable"))
 
-data_new <- df
-df <- data_new
+#data_newImm <- dfImm
+#dfImm <- data_newImm
 
 
-ggplot(data = data_new) + 
-  geom_bar(mapping = aes(x = Gender, fill = Collecting), position = "fill")+
-  scale_colour_brewer(palette = "BrBg") +
+ggplot(data = data_newImm) + 
+  geom_bar(mapping = aes(x = Immigration, fill = Collecting), position = "fill")+
+  scale_colour_brewer(palette = "BrBG") +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 
