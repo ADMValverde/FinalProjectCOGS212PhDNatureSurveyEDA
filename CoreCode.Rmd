@@ -539,6 +539,7 @@ ggplot(data = data_new1) +
 Analyzing
 graphdf1genderAnalyzing
 ```{r}
+
 ###New data frame, to ensure there are no issues down the line
 graphdf1genderAnalyzing <- df
 ###Keep all values that are not containing "Unsure/Not applicable"
