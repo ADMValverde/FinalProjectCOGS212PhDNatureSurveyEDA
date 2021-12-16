@@ -12,7 +12,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Is It Perhaps Different Doing A PhD In A Country You Grew Up In As Opposed to One That You Moved To? Is Nature Good At Doing Surveys?
-## I Mean, Probably Yes to Both Those Questions, But I Dont Know, So Lets Find Out!
+
+
+<br>
+
 
 
 
@@ -24,9 +27,11 @@ A 2019 Nature survey of doctoral students worldwide conducted by Shift Learning,
 
 To analyze if it is worse to be a PhD student and a woman, or a gender queer/ non binary person, or an immigrant, as opposed to not those things, I analyzed Nature's data set as published on [figshare](https://figshare.com/articles/dataset/Nature_Graduate_Survey_2017/5480716?file=9558301). The analysis took the form of an exploratory data analysis, where many different avenues of discourse were attempted and ideated. I also analyzed the history of the data, its transformations, its chain of custody, and the limitations and problems that the data set may present with.
 
+Overall, a preliminary exploratory data analysis found that gender may have a larger impact on how well a program trains its PhD students than one's status as an immigrant does, that immigrants experience harassment and discrimination more often that non-immigrants, and that there are a good number of concerning issues in the study conducted by Shift Learning for Nature Careers.
+
 
 ```{r someVar,results='hide', echo=FALSE,include=FALSE}
-#Sorry, misc. relevant links. These are hidden in the output of the paper as some of these havent been used in it, and therefore will be irrelevant as they havent been cited. Still, they remain here for posteriority.(And because I may refer to them later in a more thurough write up and analysis of this dataset)
+#Sorry, misc. relevant links. These are hidden in the output of the paper as some of these haven't been used in it, and therefore will be irrelevant as they haven't been cited. Still, they remain here for posteriority.(And because I may refer to them later in a more thurough write up and analysis of this dataset)
 #https://group.springernature.com/gp/group/media/press-releases/archive-2019/nature-phd-survey-puts-spotlight-on-mental-health/17372858
 #https://www.zmescience.com/other/pieces/journals-to-blame-poor-phd-mental-health-0432/
 #https://www.insidehighered.com/news/2019/11/14/phd-student-poll-finds-mental-health-bullying-and-career-uncertainty-are-top
@@ -49,7 +54,8 @@ That being said, every doctoral student's experience is not the same. Some stude
 
 I must note that I am a minority doctoral student myself. While I am a minority in my department and in my country, I am not an immigrant, nor am I a minority in the state or city where I am studying (Merced, California). I struggle with no language barrier, no one chides me for my voice, and I can travel freely throughout my campus and the city I reside in. I note this because, while my analysis of the data stands on its own, my identity is such that I am not able to speak from direct experience, and that is a limitation within this work.
 
-I was lead to this data set by a [tidytuesday post on github](https://github.com/rfordatascience/tidytuesday/issues/153), and this research was completed as the final assignment for Dr. Dan Hicks' [data science methods course](https://data-science-methods.github.io/project/) at UC Merced. The data set used in this analysis was sourced from [this figshare page](https://figshare.com/s/74a5ea79d76ad66a8af8).
+I was lead to this data set by a [tidytuesday post on github](https://github.com/rfordatascience/tidytuesday/issues/153), and this research was completed as the final assignment for Dr. Dan Hicks' [data science methods course](https://data-science-methods.github.io/project/) at UC Merced. The data set used in this analysis was sourced from [this figshare page](https://figshare.com/s/74a5ea79d76ad66a8af8). Citations are embedded within the paper and hyperlinked, so you may click on a given word and it will take you to the reference.
+
 
 
 ## Methods
@@ -94,14 +100,47 @@ Finally, we have the issue that these are self reported data and that that parti
 
 ## Findings
 ### Immigration
-#### As Defined, Immigration Does Not Have as Large of A Consequence as Gender, But This May Be a Consequence of an Inadequate Definition
+#### As Defined, Immigration Does Not Have as Large of A Consequence as Gender, But This May Be Explained By An Inadequate Definition of Immigration
+
+
 <br>
-I found that 
 
 
+I found that people who are studying in a place they did not grow up were unlikely to experience differences in training which were large in effect size when compared against people who are studying in the same place as they grew up in. Immigrant students rated their training quality for collecting data, analyzing data, designing experiments, writing for publication, developing resilience, presenting to specialists, presenting in public, finding a satisfying career, managing complex projects, developing a business plan, managing people, managing large budgets, preparedness for non-research science related careers, preparedness for careers that combine academia and industry, and satisfaction with their decision as a phd about the same as non immigrants. However, Immigrants report experiencing fewer hours with their advisors,higher levels of seeking help for anxiety or depression. Immigrants also report to have experienced bullying at slightly higher rates, and discrimination or harassment at significantly higher rates. Immigrants are slightly more likely to be women, however further analysis will be necessary to determine the nature of the relationship between gender, immigration, and outcomes. 
+
+The lack of large differences surprised me at first, however I realized that immigration does not necessarily mean that the person is having "the immigrant experience". A PhD student who moved from the U.K. to the U.S. is going to have a different experience than one who moved from China to the U.K.. Gender is also liable to play a role, as is socioeconomic status. The definition of "Are you studying in the same place that you grew up in?" could be re-framed as, "Had you been to the country that you are studying at before you began your collegiate studies?". This analysis is therefore limited due to the lack of specificity within the data set. While it could be possible to derive a more accurate measure, it is beyond the scope of this course.  
+
+### Gender
+#### Gender Is Important
 
 
+<br>
 
+
+In my analysis, I found that women regularly experience worse outcomes in their education across a span of measures. An analysis demonstrated that, compared to men, women report that their programs have prepared them to carry out scholarly activities less than men. Furthermore, when compared to men, women are less likely to agree or strongly agree to the idea that their program has prepared them for finding careers in industry, academia, and a mix between the two.
+Gender queer and Non binary people are, for some measures, more likely to respond having been well prepared by their programs, at times significantly beyond male and female responses. Due to the small sample size of gender queer and non binary people, it is difficult to ascertain whether or not these differences are an artifact of the way the survey was conducted or if there is some other factor accounting for these increased positive measures.
+
+Unfortunately, since gender was the first portion that was completed, I was unable to fully analyze a multitude of measures, particularly for harassment/discrimination, phd satisfaction, and bullying. These will be analyzed at a later date.
+
+### Quality of Analysis and Data Set
+#### Problems in the Dataset
+There appeared to be multiple inconsistencies in timing, particularly the way that they were entered into the final excel sheet. While they appear to be mostly chronologically ordered, there are time stamps which indicate people beginning months after they ended the survey, which isn't possible. This, along with the appearance of some issues with deletions and data cleaning, seem to imply that there was not an adequately ordered mechanism for compiling these survey results. If that is true, there is a high possibility of skewed results, especially when analyzing small subsets of the population. The missing data is also highly clustered, implying multiple avenues of data cleaning and participant removal, which again could skew the results.
+
+
+#### My Analysis, Pathways and Conclusions
+I began by asking myself how immigration plays into being a PhD student. I have known a few international students, and they all outlined a set of struggles, annoyances, and frustrations which were usually above and beyond those I heard from domestic students. I sorted through some tidy tuesday requests, and then found this dataset. Since it was unresolved (in that no one had taken it up), I had to problem solve on my own. Nonetheless, I ensured, through easy to follow analysies, documentation in the form of comments and explanations throughout, and consistent checking against older data frames and outside references, that I hadn't messed up the data or lost anything along the way. I plotted the data for every analysis and problem solved throughout in order to make those plots. Each step is written out and explained to the best of my ability.
+
+That is more than I can say for the data set I inherited and the analysis that sprung from it. The PDF contained in the data folder wasn't bad at all on its own, nor was the analysis that was conducted. My primary issue is with the dataset and the manner in which the survey was conducted and published, as noted in the limitations section within methods.
+My question at the beginning was, do other genders and people from other places have it worse, and if so, how? I cannot adequately answer those questions in a manner that is not explained better elsewhere. And I certainly cannot come to those conclusions based solely on my analysis of this dataset. Unfortunately I could not analyze the data statistically aside from a cursory set of analysies, and therefore I was not able to adequately quantify the diffrences for gender nor for immigration.
+
+That being said, I was able to evaluate the data set and bring up some concerns about it, and I did set up a strong pipeline for further analysis later on. 
+
+##Discussion
+I found some differences between immigrants and non-immigrants and between the genders as outlined by Nature Careers and Shift Insight. I was not able to fully quantify those differences or conclusively state statistically significant differences. However the pipeline for such an analysis was partially established. In terms of data analysis, I found significant issues with the survey and the dataset created by Shift Insight and Nature. I found personally identifying and potentially damaging information, inconsistent data cleaning and compilation practices, and I cleared up a multitude of issues liable to come up, should another person wish to look at this dataset. 
+
+In about two weeks I will close or make private the github repository containing this dataset and my analysis, and then I will seek guidance on how to best address the issue of the personally identifying information I found. It may very well not be my place to do anything about it. I will also continue to clean and adjust this dataset until every variable and value is easily analyzable in and out of R. I did not expect that I would fail to establish significant differences, nor did I expect that the preliminary analysies would indicate that immigrants and non-immigrants score similarly for satisfaction with their training, as I have heard precisely the opposite. Ultimately this analysis will likely not have an affect on those populations, as I will not publish these non-findings in the condition that they are in. However, I may send a list of recommendations to the editorial folk at Nature Careers and at Shift Insights, and will certainly make something out of this work for publication later on. However only if I obtain actual verifiable results, or alternatively find that those results which have been published are faulty, will I be able to fully evaluate the impact this work will have. 
+
+\pagebreak
 
 ## Code and Analysis
 
@@ -155,7 +194,7 @@ df2 <- df1
 df3 <- df2 
 ```
 
-Here I did some data cleaning by removing the very top row and then using the second row (the questions themselves) as the column's identifiers. The semicolons and periods in the top row created many issues in r, mainly by making the name appear to be a funciton and making the use of packages like dplyr nearly impossible to use.
+Here I did some data cleaning by removing the very top row and then using the second row (the questions themselves) as the column's identifiers. The semicolons and periods in the top row created many issues in r, mainly by making the name appear to be a function and making the use of packages like dplyr nearly impossible to use.
 ```{r echo = T, results = 'hide', message=FALSE, warning=FALSE}
 df4 <- df3
 names(df4) <- as.matrix(df4[1, ])
@@ -451,11 +490,10 @@ which will be used in a later analysis.
 df12Imm <- df11[c(13,55,56,77,78,87,96,106,
                   201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,
                   242)]
-
-df12ImmNo <- df12Imm[df12Imm$'Immigrant' == 'Yes',]
-df12ImmYes <- df12Imm[df12Imm$'Immigrant' == 'No',]
-
+#df12ImmNo <- df12Imm[df12Imm$'Immigrant' == 'No',]
+#df12ImmYes <- df12Imm[df12Imm$'Immigrant' == 'Yes',]
 ```
+
 
 Creation of ancillary and working data frames.
 ```{r}
@@ -511,6 +549,17 @@ df15Imm <- df12Imm
 dfImm <- df15Imm
 ```
 
+Make values match immigration as opposed to native born distinction.
+The question was, "Are you studying in the country you grew up in?" 
+Immigrants would answer no to the question, so sine we are calling this immigration we have to account for that issue. I add an intermediary to be safe
+```{r}
+df12Imm <- df12Imm %>%
+    mutate(Immigration = recode(Immigration, Yes = 'FutureNo', No = 'FutureYes' ))
+df12Imm <- df12Imm %>%
+    mutate(Immigration = recode(Immigration, FutureNo = 'No', FutureYes = 'Yes' ))
+dfImm<-df12Imm
+```
+
 Analysis for "Collecting data" variable as a proportion of its answers
 ```{r}
 TableCollectingProportion <- table(df12Imm$Collecting)/length(df12Imm$Collecting)
@@ -524,11 +573,23 @@ DFCollectingProportion
 
 <br>
 
+\pagebreak
+
+
 ### Graphs for Immigration
 
-<br>
+
+\pagebreak
+
 
 <br>
+
+
+<br>
+
+
+\pagebreak
+
 
 #### Immigration Against Collecting
 
@@ -539,16 +600,12 @@ Data frame: graphdf1Immigration
 ```{r}
 ###New data frame, to ensure there are no issues down the line
 graphdf1Immigration <- dfImm
-
 ###Keep all values that are not containing "Unsure/Not applicable"
 graphdf1Immigration <- graphdf1Immigration[!(graphdf1Immigration$Collecting == "Unsure/Not applicable"),]
-
 ###Refresh old graphdf1Immigration with data_new1 info
 graphdf1Immigration <- graphdf1Immigration
-
 ###Set variable order
 graphdf1Immigration$Collecting <- factor(graphdf1Immigration$Collecting , levels=c("Very badly", "Badly", "Neither well nor badly", "Well", "Very well"))
-
 ##Plot
 ggplot(data = dfImm) + 
   geom_bar(mapping = aes(x = Immigration, fill = Collecting), position = "fill")+
@@ -557,6 +614,7 @@ ggplot(data = dfImm) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
 
 #### Immigration Against Analyzing Data
 
@@ -581,6 +639,8 @@ ggplot(data = graphdfImmigrationAnalyzing) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Immigration Against Designing robust reproducible experiments
 
 <br>
@@ -603,6 +663,8 @@ ggplot(data = graphdfImmigrationDesigning) +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+\pagebreak
 
 #### Immigration Against Writing a paper for publication in a peer-reviewed journal
 
@@ -627,6 +689,8 @@ ggplot(data = graphdfImmigrationWriting) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Immigration Against Developing resilience to manage rejection by a peer review panel
 
 <br>
@@ -649,6 +713,8 @@ ggplot(data = graphdfImmigrationDevResistance) +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+\pagebreak
 
 #### Immigration Against Presenting findings to a specialist audience
 
@@ -673,6 +739,8 @@ ggplot(data = graphdfImmigrationPresentingSpecialist) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Immigration Against Presenting findings to a non-specialist (public) audience
 
 <br>
@@ -695,6 +763,8 @@ ggplot(data = graphdfImmigrationPresentingPublic) +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+\pagebreak
 
 #### Immigration Against Finding a Applying for funding
 
@@ -719,6 +789,8 @@ ggplot(data = graphdfImmigrationApplyingFunding) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Immigration Against Finding a satisfying career
 
 <br>
@@ -741,6 +813,8 @@ ggplot(data = graphdfImmigrationSatisCareer) +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+\pagebreak
 
 #### Immigration Against Managing complex projects
 
@@ -765,6 +839,8 @@ ggplot(data = graphdfImmigrationMngCompProj) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Immigration Against Developing a business plan
 
 <br>
@@ -788,6 +864,8 @@ ggplot(data = graphdfImmigrationDevBusinessPlan) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Immigration Against Managing people
 
 <br>
@@ -810,6 +888,8 @@ ggplot(data = graphdfImmigrationMngPeople) +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+\pagebreak
 
 #### Immigration Against Managing a large operational budget
 
@@ -837,6 +917,8 @@ ggplot(data = graphdfImmigrationMngLargeBudget) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Immigration Against I feel that my programme is preparing me well for a research career
 
 <br>
@@ -862,6 +944,8 @@ ggplot(data = graphdfImmigrationFeelProgPrepResearch) +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+\pagebreak
 
 #### Immigration Against I feel that my programme is perparing me well for a non-research science-related career
 
@@ -889,6 +973,8 @@ ggplot(data = graphdfImmigrationFeelProgPrepScience) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Immigration Against I feel that my programme is preparing me well for a career that straddles both industry and academia
 
 <br>
@@ -915,6 +1001,7 @@ ggplot(data = graphdfImmigrationFeelProgPrepMixIndAcad) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
 
 #### Immigration Against I am satisfied with my decision to pursue a PhD
 
@@ -942,6 +1029,7 @@ ggplot(data = graphdfImmigrationSatisfiedWithDecisionPhD) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
 
 #### Immigration Against I am satisfied with my experience
 
@@ -969,6 +1057,7 @@ ggplot(data = graphdfImmigrationSatisfiedWithPhDExperience) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
 
 #### Immigration Against Hours a week on my program
 
@@ -996,6 +1085,7 @@ ggplot(data = graphdfImmigrationHoursAWeekPhDProgram) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
 
 #### Immigration Against Hours a week with my advisor
 
@@ -1023,6 +1113,7 @@ ggplot(data = graphdfImmigrationHoursWithSupervisor) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
 
 #### Immigration Against I have seeked help for phd anxiety or deppression
 
@@ -1048,6 +1139,8 @@ ggplot(data = graphdfImmigrationAnxietyOrDepression) +
 
 <br>
 
+\pagebreak
+
 #### Immigration Against Bullying Experienced
 
 Column: Bullying
@@ -1072,6 +1165,7 @@ ggplot(data = graphdfImmigrationBullying) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
 
 #### Immigration Against Experienced discrimination or harassment
 
@@ -1098,6 +1192,7 @@ ggplot(data = graphdfImmigrationDiscriminationOrHarassment) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
 
 #### Immigration Against Gender
 
@@ -1125,8 +1220,11 @@ ggplot(data = graphdfGenderAndImmigration) +
 
 
 
+\pagebreak
 
 ## Gender Analysis against Training and Readiness (Q50) Responses and Other Selections
+
+\pagebreak
 
 ### Data Selection, Renaming, And Compillation
 
@@ -1202,6 +1300,8 @@ df <- df15
 
 <br>
 
+\pagebreak
+
 first graph for gender against collecting data, not incredibly interesting, and also hampered by small sample size of Gender Queer/Non Binary and Prefer Not To Say
 ```{r}
 
@@ -1215,6 +1315,8 @@ groupedBarGenderCollecting <- ggplot(data = df) +
 groupedBarGenderCollecting
 
 ```
+
+\pagebreak
 
 <br>
 
@@ -1238,6 +1340,8 @@ ggplot(data = data_new) +
 
 ```
 Not bad, however the not sure/not applicable bit is distorting our visual analysis.
+
+\pagebreak
 
 
 <br>
@@ -1265,7 +1369,8 @@ ggplot(data = data_new1) +
 ```
 
 
-<br>
+\pagebreak
+
 
 #### Gender Against Analyzing Data
 
@@ -1293,6 +1398,8 @@ ggplot(data = graphdf1genderAnalyzing) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Gender Against Designing robust reproducible experiments
 
 <br>
@@ -1318,6 +1425,8 @@ ggplot(data = graphdf1genderDesigning) +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+\pagebreak
 
 #### Gender Against Writing a paper for publication in a peer-reviewed journal
 
@@ -1345,6 +1454,8 @@ ggplot(data = graphdf1genderWriting) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Gender Against Developing resilience to manage rejection by a peer review panel
 
 <br>
@@ -1370,6 +1481,8 @@ ggplot(data = graphdf1genderDevResistance) +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+\pagebreak
 
 #### Gender Against Presenting findings to a specialist audience
 
@@ -1397,6 +1510,8 @@ ggplot(data = graphdf1genderPresentingSpecialist) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Gender Against Presenting findings to a non-specialist (public) audience
 
 <br>
@@ -1422,6 +1537,8 @@ ggplot(data = graphdf1genderPresentingPublic) +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+\pagebreak
 
 #### Gender Against Finding a Applying for funding
 
@@ -1449,6 +1566,8 @@ ggplot(data = graphdf1genderApplyingFunding) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Gender Against Finding a satisfying career
 
 <br>
@@ -1474,6 +1593,8 @@ ggplot(data = graphdf1genderSatisCareer) +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+\pagebreak
 
 #### Gender Against Managing complex projects
 
@@ -1501,6 +1622,8 @@ ggplot(data = graphdf1genderMngCompProj) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Gender Against Developing a business plan
 
 <br>
@@ -1526,6 +1649,8 @@ ggplot(data = graphdf1genderDevBusinessPlan) +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+\pagebreak
 
 #### Gender Against Managing people
 
@@ -1553,6 +1678,8 @@ ggplot(data = graphdf1genderMngPeople) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Gender Against Managing a large operational budget
 
 <br>
@@ -1578,6 +1705,8 @@ ggplot(data = graphdf1genderMngLargeBudget) +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+\pagebreak
 
 #### Gender Against I feel that my programme is preparing me well for a research career
 
@@ -1605,6 +1734,8 @@ ggplot(data = graphdf1genderFeelProgPrepResearch) +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
+\pagebreak
+
 #### Gender Against I feel that my programme is perparing me well for a non-research science-related career
 
 <br>
@@ -1630,6 +1761,8 @@ ggplot(data = graphdf1genderFeelProgPrepScience) +
   scale_fill_brewer(palette = "BrBG") +
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+\pagebreak
 
 #### Gender Against I feel that my programme is preparing me well for a career that straddles both industry and academia
 
@@ -1661,8 +1794,12 @@ ggplot(data = graphdf1genderFeelProgPrepMixIndAcad) +
 
 
 
+\pagebreak
+
 
 ### Appendix: Misc Example Code Area
+
+\pagebreak
 
 <br>
 
